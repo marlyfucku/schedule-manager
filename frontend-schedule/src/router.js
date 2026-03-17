@@ -5,35 +5,24 @@ import ErrorComponent from './components/ErrorComponent.js'
 
 console.log('load')
 
-const router = {
-  publications: {
-    component: App,
-    teachers: {
-      component: Teachers,
-      dynamicRoute: {
-        lessons: {
-          component: Schedule,
-        },
-      },
-    },
-  },
-  error: ErrorComponent,
-}
+const routes = [
+  { path: '/', component: App },
+  { path: '/publications', component: App },
+  { path: '/publications/teachers', component: Teachers },
+  { path: '/publications/teachers/:id/lessons', component: Schedule },
+]
 
 const navigate = (pathname) => {
-  const routes = pathname.slice(1).split('/')
-  let current = router
+  for (const route of routes) {
+    // Преобразуем динамический путь в регулярное выражение
+    const pattern = route.path.replace(/:[^/]+/g, '([^/]+)') + '/?$'
+    const regex = new RegExp('^' + pattern)
 
-  for (const segment of routes) {
-    if (current[segment]) {
-      current = current[segment]
+    if (regex.test(pathname)) {
+      return route.component
     }
-    else if (current['dynamicRoute']) {
-      current = current['dynamicRoute']
-    }
-    else return router.error
   }
-  return current.component || router.error
+  return ErrorComponent
 }
 
 export const mountRoute = async () => {
