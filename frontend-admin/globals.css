@@ -1,0 +1,56 @@
+/* Обнуляем отступы и задаем высоту на весь экран */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  background-color: #f4f7fb;
+}
+
+#app {
+  height: 100%;
+}
+
+
+/* Стили для сайдбара (слева) */
+
+
+/* Главный контейнер (справа) */
+.main {
+  flex: 1; /* Занимает всё оставшееся место (75% ширины) */
+  background-color: #ffffff;
+  padding: 25px 30px;
+  overflow-y: auto; /* Скролл внутри, если контента много */
+  color: #2c3e50;
+  font-size: 1.1rem;
+  box-shadow: inset 0 0 0 1px #e9eef2; /* Легкая граница для наглядности */
+}
+
+/* Модалка */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 4px;
+  min-width: 300px;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.hidden {
+  display: none;
+}

@@ -1,12 +1,13 @@
 import { handlers } from '../../core/init'
 import Router from '../../core/router'
-import render from '../../render'
+import render from '../../core/render'
 
 export default function SidebarCategory(category) {
   const content = Router.getRoute(category)
+  console.log('content', content)
 
-  const onClick = () => {
-    render(document.querySelector('.main'), content)
+  const onClick = async () => {
+    render(document.querySelector('.main'), await content)
   }
   const id = handlers.getId()
   handlers[id] = onClick

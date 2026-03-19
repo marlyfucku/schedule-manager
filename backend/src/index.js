@@ -17,10 +17,10 @@ fastify.register(fastifyPostgres, {
 })
 
 fastify.register(fastifyStatic, {
-  root: path.join(__dirname, '../public'),
+  root: path.join(__dirname, '../build_admin'),
 })
 
-fastify.get('/publications', (request, reply) => {
+fastify.get('/admin', (request, reply) => {
   reply.sendFile('index.html')
 })
 
