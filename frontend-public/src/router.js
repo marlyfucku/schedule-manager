@@ -1,14 +1,14 @@
 import Teachers from './pages/teachers/Page.js'
-import Schedule from './pages/schedule/Page.js'
+import Schedule from './pages/lessons/Page.js'
 import App from './App.js'
 import ErrorComponent from './components/ErrorComponent.js'
 
 console.log('load')
 
 const routes = [
-  { path: '/publications', component: App },
-  { path: '/publications/teachers', component: Teachers },
-  { path: '/publications/teachers/:id/lessons', component: Schedule },
+  { path: '/public', component: App },
+  { path: '/public/teachers', component: Teachers },
+  { path: '/public/teachers/:id/lessons', component: Schedule },
 ]
 
 const navigate = (pathname) => {

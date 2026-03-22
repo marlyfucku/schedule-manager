@@ -1,8 +1,8 @@
 start-server:
 	cd backend && node src/index.js
 
-start-front-schedule:
-	cd frontend-schedule && npm run dev
+start-front-public:
+	cd frontend-public && npm run dev
 
 start-front-admin:
 	cd frontend-admin && npm run dev

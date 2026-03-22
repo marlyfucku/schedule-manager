@@ -3,11 +3,13 @@ import { getMondayDate } from '../../lib/helpers/dateHelpers'
 import { addWindows, sortLessonsByDays } from '../../lib/helpers/sortHelpers'
 import styles from './Page.module.css'
 
-export default async function Schedule() {
-  const teacherId = new URL(window.location.href).pathname.split('/')[2]
+export default async function Page() {
+  const teacherId = new URL(window.location.href).pathname.split('/')[3]
   const date = getMondayDate()
+  console.log(teacherId, 'teacherId');
+  console.log(date, 'date');
 
-  async function fetchSchedule() {
+  async function fetchLessons() {
     try {
       const response = await fetch(`/apiv1/teachers/lessons?teacher=${teacherId}&date=${date}`)
       if (!response.ok) {
@@ -20,7 +22,7 @@ export default async function Schedule() {
       console.error('Fetch error:', error)
     }
   }
-  const { startDate, lessons } = await fetchSchedule()
+  const { startDate, lessons } = await fetchLessons()
   const sortedLessons = sortLessonsByDays(lessons)
   const days = Object.keys(sortedLessons)
   console.log('sortedLessons', sortedLessons)
