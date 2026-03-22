@@ -6,8 +6,8 @@ import styles from './Page.module.css'
 export default async function Page() {
   const teacherId = new URL(window.location.href).pathname.split('/')[3]
   const date = getMondayDate()
-  console.log(teacherId, 'teacherId');
-  console.log(date, 'date');
+  console.log(teacherId, 'teacherId')
+  console.log(date, 'date')
 
   async function fetchLessons() {
     try {
@@ -32,7 +32,7 @@ export default async function Page() {
     <div class=${styles.scheduleDashboard}>
       <h1 class=${styles.scheduleHeader}>${'Страница с расписанием'}</h1>
       <div class=${styles.scheduleGrid}>
-        ${days.map(day => DayTable({ lessons: sortedLessons[day], startDate })).join('\n')}
+        ${days.map(day => DayTable({ lessons: addWindows(sortedLessons[day]), startDate })).join('\n')}
       </div>
     </div>
   `

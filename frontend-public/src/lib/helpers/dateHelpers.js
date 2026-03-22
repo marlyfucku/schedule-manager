@@ -38,5 +38,5 @@ export function calcWindow(endTime, startTime) {
   const hours = Math.floor(breakMinutes / 60)
   const minutes = breakMinutes % 60
 
-  return `${hours} ч ${minutes} мин`
+  return `${hours} ч. ${minutes} минут`
 }
