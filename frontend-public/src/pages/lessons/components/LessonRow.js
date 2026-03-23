@@ -2,7 +2,8 @@ import styles from './LessonRow.module.css'
 
 export default function Lesson(lesson) {
   if (lesson.type === 'window') {
-    return `<tr>
+    return `
+    <tr>
       <td>
         <td class="${styles.time}">
         </td>

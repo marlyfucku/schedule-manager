@@ -1,13 +1,15 @@
 import Teachers from './pages/teachers/Page.js'
 import Schedule from './pages/lessons/Page.js'
 import App from './App.js'
-import ErrorComponent from './components/ErrorComponent.js'
+import ErrorPage from './pages/Error.js'
+import Groups from './pages/groups/Page.js'
 
 console.log('load')
 
 const routes = [
   { path: '/public', component: App },
   { path: '/public/teachers', component: Teachers },
+  { path: '/public/groups', component: Groups },
   { path: '/public/teachers/:id/lessons', component: Schedule },
 ]
 
@@ -21,7 +23,7 @@ const navigate = (pathname) => {
       return route.component
     }
   }
-  return ErrorComponent
+  return ErrorPage
 }
 
 export const mountRoute = async () => {
@@ -40,6 +42,10 @@ document.addEventListener('click', async (event) => {
   if (link) {
     const href = link.getAttribute('href')
     event.preventDefault()
+    if (href === 'back') {
+      history.back()
+      return
+    }
     history.pushState({}, '', `${baseUrl}/${href}`)
     mountRoute()
   }
