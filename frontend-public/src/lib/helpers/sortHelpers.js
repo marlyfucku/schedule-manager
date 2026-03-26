@@ -6,7 +6,6 @@ export const addWindows = (dayLessons) => {
     const thisLesson = dayLessons[i]
     const nextLesson = dayLessons[i + 1]
     const gap = nextLesson.lesson - thisLesson.lesson
-    console.log(thisLesson.lesson, nextLesson.lesson)
     result.push(dayLessons[i])
     if (gap > 1) {
       result.push({ type: 'window', totalTime: calcWindow(thisLesson.endTime, nextLesson.startTime) })

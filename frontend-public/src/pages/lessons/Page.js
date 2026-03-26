@@ -10,10 +10,11 @@ export default async function Page() {
   const sortedLessons = sortLessonsByDays(lessons)
   const days = Object.keys(sortedLessons)
   const teacher = lessons[0].teachers[0].fio
+  const breadcrumbs = [{ type: 'ref', href: '/public/teachers', text: 'Преподаватели' }, { text: teacher }]
 
   return `
   ${PageNavigation()}
-  ${BreadCrumbs([{ type: 'ref', href: '/public/teachers', text: 'Преподаватели' }, { text: teacher }])}
+  ${BreadCrumbs(breadcrumbs)}
     <div class=${styles.scheduleDashboard}>
       <h1 class=${styles.scheduleHeader}>Страница с расписанием</h1>
       <div class=${styles.scheduleGrid}>
