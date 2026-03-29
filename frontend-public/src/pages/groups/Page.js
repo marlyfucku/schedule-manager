@@ -1,3 +1,5 @@
+import BreadCrumbs from '../../components/BreadCrumbs'
+import Title from '../../components/Title'
 import { fetchGroups } from '../../lib/data'
 import Group from './components/Group'
 
@@ -6,9 +8,8 @@ export default async function Groups() {
   console.log(1, groups)
 
   return `
-    <div>
-    <h2>Группы</h2>
+      ${BreadCrumbs([{ type: 'ref', href: '/public/groups', text: 'Группы' }])}
+      ${Title('Группы')}
       ${groups.map(group => Group(group)).join('')}
-    </div>
   `
 }

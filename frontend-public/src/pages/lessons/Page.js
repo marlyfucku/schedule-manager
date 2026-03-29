@@ -13,10 +13,9 @@ export default async function Page() {
   const breadcrumbs = [{ type: 'ref', href: '/public/teachers', text: 'Преподаватели' }, { text: teacher }]
 
   return `
-  ${PageNavigation()}
   ${BreadCrumbs(breadcrumbs)}
+  ${PageNavigation()}
     <div class=${styles.scheduleDashboard}>
-      <h1 class=${styles.scheduleHeader}>Страница с расписанием</h1>
       <div class=${styles.scheduleGrid}>
         ${days.map(day => DayTable({ lessons: addWindows(sortedLessons[day]), startDate })).join('\n')}
       </div>
