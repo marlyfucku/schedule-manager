@@ -28,11 +28,11 @@ export async function fetchGroups() {
   }
 }
 
-export async function fetchLessons() {
+export async function fetchLessons(type) {
   const teacherId = new URL(window.location.href).pathname.split('/')[3]
   const date = getMondayDate()
   try {
-    const response = await fetch(`/apiv1/teachers/lessons?teacher=${teacherId}&date=${date}`)
+    const response = await fetch(`/apiv1/${type}/lessons?id=${teacherId}&date=${date}`)
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`)
     }

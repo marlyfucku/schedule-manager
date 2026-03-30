@@ -6,11 +6,12 @@ import { fetchLessons } from '../../lib/data'
 import PageNavigation from '../../components/PageNavigation'
 
 export default async function Page() {
-  const { startDate, lessons } = await fetchLessons()
+  const resource = new URL(window.location).pathname.split('/')[2]
+  const { startDate, lessons } = await fetchLessons(resource)
   const sortedLessons = sortLessonsByDays(lessons)
   const days = Object.keys(sortedLessons)
   const teacher = lessons[0].teachers[0].fio
-  const breadcrumbs = [{ type: 'ref', href: '/public/teachers', text: 'Преподаватели' }, { text: teacher }]
+  const breadcrumbs = [{ type: 'ref', href: `/public/${resource}`, text: resource === 'teachers' ? 'Преподаватели' : 'Группы' }, { text: teacher }]
 
   return `
   ${BreadCrumbs(breadcrumbs)}

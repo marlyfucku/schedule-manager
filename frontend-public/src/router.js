@@ -11,6 +11,7 @@ const routes = [
   { path: '/public/teachers', component: Teachers },
   { path: '/public/groups', component: Groups },
   { path: '/public/teachers/:id/lessons', component: Schedule },
+  { path: '/public/groups/:id/lessons', component: Schedule },
 ]
 
 const navigate = (pathname) => {
