@@ -1,9 +1,14 @@
 .breadcrumbs {
   margin-bottom: 5px;
   font-size: 0.85rem;
+  display: flex;
 }
 
 .breadcrumbs > * {
+  margin-right: 10px;
+}
+
+.slash {
   margin-right: 10px;
 }
 
