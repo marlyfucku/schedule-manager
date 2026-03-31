@@ -16,7 +16,7 @@ export default async function Page() {
       type: 'ref', href: `/public/${category}`,
       text: category === 'teachers' ? 'Преподаватели' : 'Группы',
     },
-    { text: category === 'teachers' ? lessons[0].teachers[0].fio : group.name }
+    { text: category === 'teachers' ? lessons[0].teachers[0].fio : group.name },
   ]
 
   return `

@@ -1,6 +1,6 @@
 import Teachers from './pages/teachers/Page.js'
 import Schedule from './pages/lessons/Page.js'
-import App from './App.js'
+import App from './App.jsx'
 import ErrorPage from './pages/Error.js'
 import Groups from './pages/groups/Page.js'
 
