@@ -5,7 +5,6 @@ import Group from './components/Group'
 
 export default async function Groups() {
   const groups = await fetchGroups()
-  console.log(1, groups)
 
   return `
       ${BreadCrumbs([{ type: 'ref', href: '/public/groups', text: 'Группы' }])}

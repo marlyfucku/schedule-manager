@@ -1,4 +1,5 @@
 import { getMondayDate } from './helpers/dateHelpers'
+import { parseUrl } from './helpers/urlHelpers'
 
 export async function fetchTeachers() {
   try {
@@ -28,11 +29,11 @@ export async function fetchGroups() {
   }
 }
 
-export async function fetchLessons(type) {
-  const teacherId = new URL(window.location.href).pathname.split('/')[3]
+export async function fetchLessons(category) {
+  const { id } = parseUrl(window.location.href)
   const date = getMondayDate()
   try {
-    const response = await fetch(`/apiv1/${type}/lessons?id=${teacherId}&date=${date}`)
+    const response = await fetch(`/apiv1/${category}/lessons?id=${id}&date=${date}`)
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`)
     }

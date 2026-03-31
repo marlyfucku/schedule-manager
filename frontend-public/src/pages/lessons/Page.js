@@ -4,14 +4,18 @@ import styles from './Page.module.css'
 import BreadCrumbs from '../../components/BreadCrumbs'
 import { fetchLessons } from '../../lib/data'
 import PageNavigation from '../../components/PageNavigation'
+import { parseUrl } from '../../lib/helpers/urlHelpers'
 
 export default async function Page() {
-  const resource = new URL(window.location).pathname.split('/')[2]
-  const { startDate, lessons } = await fetchLessons(resource)
+  const { category } = parseUrl(window.location.href)
+  const { startDate, lessons, group } = await fetchLessons(category)
   const sortedLessons = sortLessonsByDays(lessons)
   const days = Object.keys(sortedLessons)
-  const teacher = lessons[0].teachers[0].fio
-  const breadcrumbs = [{ type: 'ref', href: `/public/${resource}`, text: resource === 'teachers' ? 'Преподаватели' : 'Группы' }, { text: teacher }]
+  const breadcrumbs = [{
+    type: 'ref', href: `/public/${category}`,
+    text: category === 'teachers' ? 'Преподаватели' : 'Группы'
+  },
+  { text: category === 'teachers' ? lessons[0].teachers[0].fio : group.name }]
 
   return `
   ${BreadCrumbs(breadcrumbs)}
