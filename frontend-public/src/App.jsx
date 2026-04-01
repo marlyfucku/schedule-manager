@@ -1,6 +1,5 @@
 import MainCard from './components/MainCard.jsx'
 import styles from './App.module.css'
-import { h } from '../h.js'
 
 export default function App() {
   return (

@@ -1,5 +1,4 @@
 import styles from './Teacher.module.css'
-import { h } from '../../../../h.js'
 
 export default function TeacherName(teacher) {
   return (

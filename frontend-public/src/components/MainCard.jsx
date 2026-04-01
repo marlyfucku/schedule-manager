@@ -1,5 +1,4 @@
 import styles from './MainCard.module.css'
-import { h } from '../../h.js'
 
 export default function MainCard({ name, description, href }) {
   return (

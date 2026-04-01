@@ -1,5 +1,4 @@
 import styles from './Error.module.css'
-import { h } from '../../h.js'
 
 export default function Error() {
   return (

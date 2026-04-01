@@ -5,7 +5,6 @@ import BreadCrumbs from '../../components/BreadCrumbs.jsx'
 import { fetchLessons } from '../../lib/data.js'
 import PageNavigation from '../../components/PageNavigation.jsx'
 import { parseUrl } from '../../lib/helpers/urlHelpers.js'
-import { h } from '../../../h.js'
 
 export default async function Page() {
   const { category } = parseUrl(window.location.href)

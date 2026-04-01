@@ -1,5 +1,4 @@
 import styles from './LessonRow.module.css'
-import { h } from '../../../../h.js'
 
 export default function Lesson(lesson) {
   if (lesson.type === 'window') {
