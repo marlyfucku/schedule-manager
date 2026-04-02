@@ -25,12 +25,13 @@ export const getTeacherById = async (fastify, id) => {
 export const createTeacher = async (fastify, data) => {
   const client = await fastify.pg.connect()
   try {
+    console.log('formdata', data);
     const { rows } = await client.query(teachersQueries.create, [
-      data.name,
-      data.short_name,
+      data.fio,
+      data.abbr,
       data.position,
-      data.color,
     ])
+    console.log('rows', rows[0]);
     return rows[0]
   }
   finally {

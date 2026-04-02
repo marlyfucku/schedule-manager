@@ -1,4 +1,4 @@
-const handlers = {
+export const handlers = {
   id: 0,
   openModal: () => {
     document.querySelector('.modal-overlay').classList.remove('hidden')
