@@ -1,10 +1,10 @@
 export const handlers = {
   id: 0,
-  openModal: () => {
-    document.querySelector('.modal-overlay').classList.remove('hidden')
+  openModal: (selector) => {
+    document.querySelector(selector).classList.add('show')
   },
-  closeModal: () => {
-    document.querySelector('.modal-overlay').classList.add('hidden')
+  closeModal: (selector) => {
+    document.querySelector(selector).classList.remove('show')
   },
   showFlashMessage: ({ type, message }) => {
     const flashContainer = document.querySelector('.flash-message')

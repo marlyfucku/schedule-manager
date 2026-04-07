@@ -11,7 +11,25 @@ export async function createTeacher(data) {
       throw new Error(`HTTP error! status: ${response.status}`)
     }
     return await response.json()
-    // return { type: 'success', message: 'Преподаватель успешно создан!' }
+  }
+  catch (error) {
+    return { type: 'error', message: error.message }
+  }
+}
+
+export async function deleteTeacher(teacherId) {
+  try {
+    const response = await fetch('/apiv1/teachers', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(teacherId),
+    })
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+    return await response.json()
   }
   catch (error) {
     return { type: 'error', message: error.message }

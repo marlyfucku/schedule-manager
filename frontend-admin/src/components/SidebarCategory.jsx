@@ -1,4 +1,4 @@
-import { registerHandler } from '../core/init'
+import { registerHandler } from '../core/handlers'
 import Router from '../core/router'
 import render from '../core/render'
 

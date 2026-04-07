@@ -29,6 +29,7 @@ html, body {
   background: white;
   border-radius: 4px;
   min-width: 300px;
+  min-height: 50px;
   max-width: 500px;
   max-height: 80vh;
   overflow-y: auto;
@@ -55,6 +56,10 @@ html, body {
 
 .hidden {
   display: none;
+}
+
+.show {
+  display: flex;
 }
 
 .flash-message {

@@ -36,3 +36,14 @@ export const createTeacher = async (fastify, data) => {
     client.release()
   }
 }
+
+export const deleteTeacher = async (fastify, teacherId) => {
+  const client = await fastify.pg.connect()
+  try {
+    await client.query(teachersQueries.delete, [teacherId])
+    return { type: 'success', message: 'Преподаватель удален!' }
+  }
+  finally {
+    client.release()
+  }
+}
