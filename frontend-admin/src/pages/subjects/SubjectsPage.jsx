@@ -1,7 +1,12 @@
 import PageTitle from "../../components/shared/PageTitle";
+import Sidebar from "../../components/shared/Sidebar";
 
 export default function SubjectsPage() {
-  return <div>
-    <PageTitle title="Предметы" />
-  </div>
+  return <>
+    <Sidebar />
+    <div className="content">
+      <PageTitle title="Предметы" />
+
+    </div>
+  </>
 }
