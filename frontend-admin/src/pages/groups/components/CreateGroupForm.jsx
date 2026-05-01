@@ -3,6 +3,7 @@ import { handlers, registerSubmit } from '../../../core/handlers'
 import { render } from '../../../core/render'
 import GroupsPage from '../GroupsPage'
 import { createGroup } from '../../../api/groups'
+import { ui } from '../../../utils/dom'
 
 export default function CreateGroupForm() {
   const onSubmit = async (e) => {
@@ -13,8 +14,8 @@ export default function CreateGroupForm() {
       year_of_admission: formData.get('year_of_admission'),
     }
     const result = await createGroup(data)
-    handlers.closeModal()
-    handlers.showFlashMessage(result)
+    ui.closeModal()
+    ui.showFlashMessage(result)
     render('#main', <GroupsPage />)
   }
 

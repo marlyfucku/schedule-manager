@@ -3,6 +3,7 @@ import { handlers } from '../../../core/handlers'
 import { render } from '../../../core/render'
 import GroupsPage from '../GroupsPage'
 import { updateGroup } from '../../../api/groups'
+import { ui } from '../../../utils/dom'
 
 export default function UpdateGroupForm({ group }) {
   const onSubmit = async (e) => {
@@ -14,8 +15,8 @@ export default function UpdateGroupForm({ group }) {
       id: group.id,
     }
     const result = await updateGroup(data)
-    handlers.closeModal()
-    handlers.showFlashMessage(result)
+    ui.closeModal()
+    ui.showFlashMessage(result)
     render('#main', <GroupsPage />)
   }
 

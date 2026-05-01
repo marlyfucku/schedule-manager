@@ -6,6 +6,7 @@ import { render } from "../../../core/render";
 import TeachersPage from "../TeachersPage";
 import styles from "./TeachersTable.module.css"
 import UpdateTeacherForm from "./UpdateTeacherForm";
+import { ui } from "../../../utils/dom";
 
 export default function TeachersTable({ teachers }) {
   let teacher = {};
@@ -13,24 +14,24 @@ export default function TeachersTable({ teachers }) {
     const confirmForm = document.querySelector('#confirmForm')
     const teacherId = confirmForm.dataset.teacherid
     const result = await deleteTeacher(teacherId)
-    handlers.closeModal('deleteTeacher')
-    handlers.showFlashMessage(result)
+    ui.closeModal()
+    ui.showFlashMessage(result)
     render('#main', <TeachersPage />)
   }
-  const onCancel = () => handlers.closeModal('deleteTeacher')
+
   const showModalUpdateTeacher = (e) => {
     const updateTeacherForm = document.querySelector('#updateTeacherForm')
     const teacherid = e.target.attributes.getNamedItem('teacherid').value
     teacher = teachers.find((teacher) => teacher.id === +teacherid)
     updateTeacherForm.dataset.teacherid = teacherid
     render('#updateTeacher-content', <UpdateTeacherForm closeId="updateTeacher" teacher={teacher} />)
-    handlers.openModal('updateTeacher')
+    ui.openModal('updateTeacher')
   }
   const showModalDeleteTeacher = (e) => {
     const confirmForm = document.querySelector('#confirmForm')
     const teacherid = e.target.attributes.getNamedItem('teacherid').value
     confirmForm.dataset.teacherid = teacherid
-    handlers.openModal('deleteTeacher')
+    ui.openModal('deleteTeacher')
   }
 
   return (
@@ -63,7 +64,7 @@ export default function TeachersTable({ teachers }) {
         <UpdateTeacherForm closeId="updateTeacher" teacher={teacher} />
       </Modal>
       <Modal modalId="deleteTeacher">
-        <ConfirmForm message="Подтвердите удаление преподавателя" onConfirm={onConfirm} onCancel={onCancel} />
+        <ConfirmForm message="Подтвердите удаление преподавателя" onConfirm={onConfirm} />
       </Modal>
     </>
   )

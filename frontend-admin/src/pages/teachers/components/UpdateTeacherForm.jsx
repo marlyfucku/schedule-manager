@@ -3,6 +3,7 @@ import { handlers } from '../../../core/handlers'
 import { updateTeacher } from '../../../api/teachers'
 import { render } from '../../../core/render'
 import TeachersPage from '../TeachersPage'
+import { ui } from '../../../utils/dom'
 
 export default function UpdateTeacherForm({ closeId, teacher }) {
   const onSubmit = async (e) => {
@@ -14,8 +15,8 @@ export default function UpdateTeacherForm({ closeId, teacher }) {
       id: teacher.id,
     }
     const result = await updateTeacher(data)
-    handlers.closeModal(closeId)
-    handlers.showFlashMessage(result)
+    ui.closeModal()
+    ui.showFlashMessage(result)
     render('#main', <TeachersPage />)
   }
 

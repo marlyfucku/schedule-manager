@@ -3,6 +3,7 @@ import { handlers } from '../../../core/handlers'
 import { createTeacher } from '../../../api/teachers'
 import { render } from '../../../core/render'
 import TeachersPage from '../TeachersPage'
+import { ui } from '../../../utils/dom'
 
 export default function CreateTeacherForm({ closeId }) {
   const onSubmit = async (e) => {
@@ -13,8 +14,8 @@ export default function CreateTeacherForm({ closeId }) {
       position: formData.get('position'),
     }
     const result = await createTeacher(data)
-    handlers.closeModal(closeId)
-    handlers.showFlashMessage(result)
+    ui.closeModal()
+    ui.showFlashMessage(result)
     render('#main', <TeachersPage />)
   }
 

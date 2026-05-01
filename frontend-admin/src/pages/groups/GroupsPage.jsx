@@ -5,10 +5,11 @@ import Modal from '../../shared/Modal'
 import PageTitle from '../../shared/PageTitle'
 import GroupsTable from './components/GroupTable'
 import Sidebar from '../../shared/Sidebar'
+import { ui } from '../../utils/dom'
 
 export default async function GroupsPage() {
   const groups = await fetchGroups()
-  const showModalCreateGroup = () => handlers.openModal('createGroup')
+  const showModalCreateGroup = () => ui.openModal('createGroup')
 
   return (
     <>

@@ -1,11 +1,11 @@
 import ConfirmForm from "../../../shared/ConfirmForm";
 import Modal from "../../../shared/Modal";
-import { handlers } from "../../../core/handlers"
 import { render } from "../../../core/render";
 import GroupsPage from "../GroupsPage";
 import styles from "./GroupsTable.module.css"
 import UpdateGroupForm from "./UpdateGroupForm";
 import { deleteGroup } from "../../../api/groups";
+import { ui } from "../../../utils/dom";
 
 export default function GroupsTable({ groups }) {
   let groupToDelete;
@@ -13,19 +13,19 @@ export default function GroupsTable({ groups }) {
 
   const onConfirm = async () => {
     const result = await deleteGroup(groupToDelete)
-    handlers.closeModal()
-    handlers.showFlashMessage(result)
+    ui.closeModal()
+    ui.showFlashMessage(result)
     groupToDelete = null
     render('#main', <GroupsPage />)
   }
   const showModalUpdateGroup = (groupId) => {
     groupToUpdate = groups.find(group => group.id === groupId)
     render('#updateGroup-content', <UpdateGroupForm closeId="updateGroup" group={groupToUpdate} />)
-    handlers.openModal('updateGroup')
+    ui.openModal('updateGroup')
   }
   const showModalDeleteGroup = (groupId) => {
     groupToDelete = groupId
-    handlers.openModal('deleteGroup')
+    ui.openModal('deleteGroup')
   }
 
   return (

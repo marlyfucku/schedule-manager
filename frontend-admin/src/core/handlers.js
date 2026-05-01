@@ -2,21 +2,6 @@ export const handlers = {
   _id: 0,
   click: {},
   submit: {},
-  openModal: (modalId) => {
-    document.getElementById(modalId).classList.add('show')
-  },
-  closeModal: () => {
-    document.querySelector('.show').classList.remove('show')
-  },
-  showFlashMessage: ({ type, message }) => {
-    const flashContainer = document.querySelector('.flash-message')
-    flashContainer.innerHTML = message
-    flashContainer.classList.add('show', type)
-    setTimeout(() => {
-      flashContainer.classList.remove('show', type)
-      flashContainer.innerHTML = ''
-    }, 3000)
-  },
   getId: function () { return ++this._id },
 }
 
