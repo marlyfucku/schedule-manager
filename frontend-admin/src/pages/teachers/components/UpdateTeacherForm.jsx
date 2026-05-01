@@ -1,5 +1,4 @@
 import styles from './TeacherForm.module.css'
-import { handlers } from '../../../core/handlers'
 import { updateTeacher } from '../../../api/teachers'
 import { render } from '../../../core/render'
 import TeachersPage from '../TeachersPage'

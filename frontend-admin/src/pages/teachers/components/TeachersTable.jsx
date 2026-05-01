@@ -1,7 +1,6 @@
 import { deleteTeacher } from "../../../api/teachers";
 import ConfirmForm from "../../../shared/ConfirmForm";
 import Modal from "../../../shared/Modal";
-import { handlers } from "../../../core/handlers"
 import { render } from "../../../core/render";
 import TeachersPage from "../TeachersPage";
 import styles from "./TeachersTable.module.css"
@@ -9,28 +8,24 @@ import UpdateTeacherForm from "./UpdateTeacherForm";
 import { ui } from "../../../utils/dom";
 
 export default function TeachersTable({ teachers }) {
-  let teacher = {};
+  let teacherToDelete;
+  let teacherToUpdate = {};
   const onConfirm = async () => {
-    const confirmForm = document.querySelector('#confirmForm')
-    const teacherId = confirmForm.dataset.teacherid
-    const result = await deleteTeacher(teacherId)
+    const result = await deleteTeacher(teacherToDelete)
     ui.closeModal()
     ui.showFlashMessage(result)
+    teacherToDelete = null
     render('#main', <TeachersPage />)
   }
 
-  const showModalUpdateTeacher = (e) => {
-    const updateTeacherForm = document.querySelector('#updateTeacherForm')
-    const teacherid = e.target.attributes.getNamedItem('teacherid').value
-    teacher = teachers.find((teacher) => teacher.id === +teacherid)
-    updateTeacherForm.dataset.teacherid = teacherid
-    render('#updateTeacher-content', <UpdateTeacherForm closeId="updateTeacher" teacher={teacher} />)
+  const showModalUpdateTeacher = (teacherId) => {
+    teacherToUpdate = teachers.find((teacher) => teacher.id === teacherId)
+    render('#updateTeacher-content', <UpdateTeacherForm closeId="updateTeacher" teacher={teacherToUpdate} />)
     ui.openModal('updateTeacher')
   }
-  const showModalDeleteTeacher = (e) => {
-    const confirmForm = document.querySelector('#confirmForm')
-    const teacherid = e.target.attributes.getNamedItem('teacherid').value
-    confirmForm.dataset.teacherid = teacherid
+  
+  const showModalDeleteTeacher = (teacherId) => {
+    teacherToDelete = teacherId
     ui.openModal('deleteTeacher')
   }
 
@@ -54,14 +49,14 @@ export default function TeachersTable({ teachers }) {
               <td>{teacher.fio}</td>
               <td>{teacher.position}</td>
               <td>{teacher.color}</td>
-              <td><button teacherId={teacher.id} onClick={showModalUpdateTeacher}>Редактировать</button></td>
-              <td><button teacherId={teacher.id} onClick={showModalDeleteTeacher}>Удалить</button></td>
+              <td><button teacherId={teacher.id} onClick={() => showModalUpdateTeacher(teacher.id)}>Редактировать</button></td>
+              <td><button teacherId={teacher.id} onClick={() => showModalDeleteTeacher(teacher.id)}>Удалить</button></td>
             </tr>
           ))}
         </tbody>
       </table>
       <Modal modalId="updateTeacher">
-        <UpdateTeacherForm closeId="updateTeacher" teacher={teacher} />
+        <UpdateTeacherForm closeId="updateTeacher" teacher={teacherToUpdate} />
       </Modal>
       <Modal modalId="deleteTeacher">
         <ConfirmForm message="Подтвердите удаление преподавателя" onConfirm={onConfirm} />
