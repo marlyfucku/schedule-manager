@@ -25,3 +25,7 @@ export const subjectsQueries = {
   update: 'UPDATE subjects SET name = $1, abbreviation = $2 WHERE id = $3',
   delete: 'DELETE FROM subjects WHERE id = $1',
 };
+
+export const lessonsQueries = {
+  getAll: 'SELECT * FROM lessons ORDER BY name',
+};

@@ -6,6 +6,7 @@ import TeachersPage from './src/pages/teachers/TeachersPage.jsx';
 import ClassesPage from './src/pages/classes/ClassesPage.jsx';
 import GroupsPage from './src/pages/groups/GroupsPage.jsx';
 import { initWood } from './src/core/initWood.js';
+import LessonsPage from './src/pages/lessons/LessonsPage.jsx';
 
 const routes = [
   { path: '/admin', component: App, parentSelector: '#app' },
@@ -14,6 +15,7 @@ const routes = [
   { path: '/admin/subjects', component: SubjectsPage, parentSelector: '#main' },
   { path: '/admin/classes', component: ClassesPage, parentSelector: '#main' },
   { path: '/admin/groups', component: GroupsPage, parentSelector: '#main' },
+  { path: '/admin/lessons', component: LessonsPage, parentSelector: '#main' },
 ];
 
 const errorRoute = [{ component: ErrorPage, parentSelector: '#app' }];
