@@ -1,8 +1,8 @@
-export const getLessons = async (fastify) => {
+export const getLessonsByScheduleId = async (fastify, scheduleId) => {
   const client = await fastify.pg.connect();
 
   try {
-    // Получаем все уроки с информацией о группах, предметах и учителях
+    // Получаем уроки для конкретного расписания
     const { rows: lessons } = await client.query(`
       SELECT 
         l.id,
@@ -11,7 +11,7 @@ export const getLessons = async (fastify) => {
         l.classroom,
         l.group_id as "groupId",
         g.name as "groupName",
-        g.abbreviation as "groupShortName",
+        g.abbreviation as "groupAbbr",
         l.subject_id as "subjectId",
         sub.name as "subjectName",
         sub.abbreviation as "subjectAbbr",
@@ -22,31 +22,27 @@ export const getLessons = async (fastify) => {
       JOIN groups g ON l.group_id = g.id
       JOIN subjects sub ON l.subject_id = sub.id
       JOIN teachers t ON l.teacher_id = t.id
+      WHERE l.schedule_id = $1
       ORDER BY l.group_id, l.weekday, l.lesson_number
-    `);
+    `, [scheduleId]);
 
-    // Получаем информацию о расписании (schedules)
-    const { rows: schedules } = await client.query(`
-      SELECT 
-        id,
-        name,
-        created,
-        lessons_in_day as "lessonsInDay",
-        weekdays
+    // Получаем информацию о расписании
+    const { rows: scheduleInfo } = await client.query(`
+      SELECT id, name, lessons_in_day as "lessonsInDay", weekdays
       FROM schedules
-      ORDER BY id
-    `);
+      WHERE id = $1
+    `, [scheduleId]);
 
-    // Получаем все группы
+    // Получаем все группы (для фильтра)
     const { rows: groups } = await client.query(`
-      SELECT id, name, abbreviation as "abbreviation"
+      SELECT id, name, abbreviation
       FROM groups
       ORDER BY name
     `);
 
     // Получаем все предметы
     const { rows: subjects } = await client.query(`
-      SELECT id, name, abbreviation as "abbreviation"
+      SELECT id, name, abbreviation
       FROM subjects
       ORDER BY name
     `);
@@ -59,8 +55,8 @@ export const getLessons = async (fastify) => {
     `);
 
     return {
+      schedule: scheduleInfo[0],
       lessons,
-      schedules,
       groups,
       subjects,
       teachers,

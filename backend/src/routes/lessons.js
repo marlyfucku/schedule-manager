@@ -1,8 +1,9 @@
-import { getLessons } from '../controllers/lessons.js';
+import { getLessonsByScheduleId } from '../controllers/lessons.js';
 
-export default async function teachersRoutes(fastify) {
-  fastify.get('/lessons', async (req, reply) => {
-    const lessons = await getLessons(fastify);
+export default async function lessonsRoutes(fastify) {
+  fastify.get('/lessons/schedule/:scheduleId', async (req, reply) => {
+    const { scheduleId } = req.params;
+    const lessons = await getLessonsByScheduleId(fastify, scheduleId);
     reply.send(lessons);
   });
 }

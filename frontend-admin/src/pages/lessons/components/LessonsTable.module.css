@@ -1,0 +1,75 @@
+/* LessonsTable.module.css */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* Важно! Фиксированная ширина колонок */
+}
+
+.table th,
+.table td {
+  border: 1px solid #e2e8f0;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* Фиксированная ширина для колонок */
+.table th:first-child,
+.table td:first-child {
+  width: 100px; /* Ширина колонки с названием группы */
+}
+
+.table th:not(:first-child),
+.table td:not(:first-child) {
+  width: calc((100% - 100px) / var(--weekdays-count, 7)); /* Равномерное распределение */
+}
+
+.pairsContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.pairSlot {
+  flex: 1;
+  min-height: 60px;
+  border-right: 1px solid #e2e8f0;
+  transition: all 0.2s;
+}
+
+.pairSlot:hover {
+  background-color: #f1f5f9;
+}
+
+.pairContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.subject {
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: #1e293b;
+}
+
+.teacher {
+  font-size: 0.65rem;
+  color: #64748b;
+}
+
+.classroom {
+  font-size: 0.6rem;
+  background: #e2e8f0;
+  padding: 0.0625rem 0.25rem;
+  border-radius: 0.125rem;
+  display: inline-block;
+  width: fit-content;
+}
+
+.emptySlot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 1rem;
+  color: #94a3b8;
+}
