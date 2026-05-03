@@ -20,7 +20,7 @@
   background-color: white;
   border-radius: 0.5rem;
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 10%);
 }
 
 .table thead {
@@ -82,11 +82,11 @@
   padding: 1.5rem;
   border-radius: 0.5rem;
   min-width: 320px;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 25px -5px rgb(0 0 0 / 10%);
 }
 
 .form h3 {
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 0.5rem;
   font-size: 1.25rem;
   font-weight: 600;
   color: #1f2937;
@@ -103,7 +103,7 @@
 .form input:focus {
   outline: none;
   border-color: #3b82f6;
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+  box-shadow: 0 0 0 2px rgb(59 130 246 / 10%);
 }
 
 .form button[type="submit"] {
