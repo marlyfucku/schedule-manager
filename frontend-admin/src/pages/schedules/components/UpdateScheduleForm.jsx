@@ -10,14 +10,14 @@ export default function UpdateScheduleForm({ closeId, schedule }) {
   const onSubmit = async (e) => {
     e.preventDefault()
     const formData = new FormData(e.target)
-    
+
     const weekdays = []
     for (let i = 1; i <= 7; i++) {
       if (formData.get(`weekday_${i}`)) {
         weekdays.push(i)
       }
     }
-    
+
     const data = {
       id: schedule.id,
       name: formData.get('name'),
@@ -37,7 +37,7 @@ export default function UpdateScheduleForm({ closeId, schedule }) {
       <h3>Редактировать расписание</h3>
       <input type="text" name="name" placeholder="Название расписания" required value={schedule.name} />
       <input type="number" name="lessonsInDay" placeholder="Количество пар в день" required min="1" max="8" value={schedule.lessonsInDay} />
-      
+
       <div class={styles.weekdays}>
         <label><input type="checkbox" name="weekday_1" value="1" defaultChecked={isChecked(1)} /> Пн</label>
         <label><input type="checkbox" name="weekday_2" value="2" defaultChecked={isChecked(2)} /> Вт</label>
@@ -47,7 +47,7 @@ export default function UpdateScheduleForm({ closeId, schedule }) {
         <label><input type="checkbox" name="weekday_6" value="6" defaultChecked={isChecked(6)} /> Сб</label>
         <label><input type="checkbox" name="weekday_7" value="7" defaultChecked={isChecked(7)} /> Вс</label>
       </div>
-      
+
       <button type="submit">Редактировать</button>
     </form>
   )

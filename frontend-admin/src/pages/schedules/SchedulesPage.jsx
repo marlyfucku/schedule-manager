@@ -14,8 +14,8 @@ export default async function SchedulesPage() {
     <>
       <div class={pages.crudPage}>
         <div class={pages.crudHeader}>
-          <PageTitle title="Р Р°СЃРїРёСЃР°РЅРёСЏ" />
-          <button class={pages.addButton} onClick={showModalCreateSchedule}>Р”РѕР±Р°РІРёС‚СЊ СЂР°СЃРїРёСЃР°РЅРёРµ</button>
+          <PageTitle title="Расписания" />
+          <button class={pages.addButton} onClick={showModalCreateSchedule}>Добавить расписание</button>
         </div>
         <SchedulesTable schedules={schedules} />
         <Modal modalId="createSchedule">

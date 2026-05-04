@@ -44,10 +44,10 @@ export default function SchedulesTable({ schedules }) {
       <table class={pages.table}>
         <thead>
           <tr>
-            <th>РќР°Р·РІР°РЅРёРµ</th>
-            <th>Р”Р°С‚Р° СЃРѕР·РґР°РЅРёСЏ</th>
-            <th>РџР°СЂ РІ РґРµРЅСЊ</th>
-            <th>Р”РЅРё РЅРµРґРµР»Рё</th>
+            <th>Название</th>
+            <th>Дата создания</th>
+            <th>Пар в день</th>
+            <th>Дни недели</th>
             <th></th>
             <th></th>
           </tr>
@@ -64,7 +64,7 @@ export default function SchedulesTable({ schedules }) {
                   class={`${pages.tableActionButton} ${pages.tableEditButton}`}
                   onClick={() => showModalUpdateSchedule(schedule.id)}
                 >
-                  Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ
+                  Редактировать
                 </button>
               </td>
               <td>
@@ -72,7 +72,7 @@ export default function SchedulesTable({ schedules }) {
                   class={`${pages.tableActionButton} ${pages.tableDeleteButton}`}
                   onClick={() => showModalDeleteSchedule(schedule.id)}
                 >
-                  РЈРґР°Р»РёС‚СЊ
+                  Удалить
                 </button>
               </td>
             </tr>
@@ -83,7 +83,7 @@ export default function SchedulesTable({ schedules }) {
         <UpdateScheduleForm closeId="updateSchedule" schedule={scheduleToUpdate} />
       </Modal>
       <Modal modalId="deleteSchedule">
-        <ConfirmForm message="РџРѕРґС‚РІРµСЂРґРёС‚Рµ СѓРґР°Р»РµРЅРёРµ СЂР°СЃРїРёСЃР°РЅРёСЏ" onConfirm={onConfirm} />
+        <ConfirmForm message="Подтвердите удаление расписания" onConfirm={onConfirm} />
       </Modal>
     </>
   )
