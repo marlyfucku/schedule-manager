@@ -12,7 +12,7 @@ export default async function SchedulesPage() {
 
   return (
     <>
-      <div class={pages.crudPage}>
+      <div class={`${pages.crudPage} content`}>
         <div class={pages.crudHeader}>
           <PageTitle title="Расписания" />
           <button class={pages.addButton} onClick={showModalCreateSchedule}>Добавить расписание</button>
