@@ -14,7 +14,7 @@ export default async function TeachersPage() {
   return (
     <>
       <div class={`content ${styles.crudPage}`}>
-        <PageHeader title="Преподаватели" addButtonText="Добавить преподавателя" onAdd={showModalCreateTeacher} />
+        <PageHeader title="Преподаватели" buttonText="Добавить преподавателя" onAdd={showModalCreateTeacher} />
         <TeachersTable teachers={teachers} />
       </div>
       <Modal modalId="createTeacher">

@@ -13,7 +13,7 @@ export default async function SubjectsPage() {
   return (
     <>
       <div class={`content ${styles.crudPage}`}>
-        <PageHeader title="Предметы" addButtonText="Добавить предмет" onAdd={showModalCreateSubject} />
+        <PageHeader title="Предметы" buttonText="Добавить предмет" onAdd={showModalCreateSubject} />
         <SubjectsTable subjects={subjects} />
       </div>
       <Modal modalId="createSubject">

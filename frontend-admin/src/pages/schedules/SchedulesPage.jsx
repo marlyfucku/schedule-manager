@@ -13,7 +13,7 @@ export default async function SchedulesPage() {
   return (
     <>
       <div class={`${pages.crudPage} content`}>
-        <PageHeader title="Расписания" addButtonText="Добавить расписание" onAdd={showModalCreateSchedule} />
+        <PageHeader title="Расписания" buttonText="Добавить расписание" onAdd={showModalCreateSchedule} />
         <SchedulesTable schedules={schedules} />
         <Modal modalId="createSchedule">
           <CreateScheduleForm closeId="createSchedule" />

@@ -13,7 +13,7 @@ export default async function ClassesPage() {
   return (
     <>
       <div class={`content ${styles.crudPage}`}>
-        <PageHeader title="Аудитории" addButtonText="Добавить аудиторию" onAdd={showModalCreateClass} />
+        <PageHeader title="Аудитории" buttonText="Добавить аудиторию" onAdd={showModalCreateClass} />
         <ClassesTable classes={classes} />
         <Modal modalId="createClass">
           <CreateClassForm closeId="createClass" />

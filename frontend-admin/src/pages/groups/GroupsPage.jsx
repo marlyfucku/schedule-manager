@@ -15,7 +15,7 @@ export default async function GroupsPage() {
   return (
     <>
       <div class={`content ${styles.crudPage}`}>
-        <PageHeader title="Группы" addButtonText="Добавить группу" onAdd={showModalCreateGroup} />
+        <PageHeader title="Группы" buttonText="Добавить группу" onAdd={showModalCreateGroup} />
         <GroupsTable groups={groups} />
         <Modal modalId="createGroup">
           <CreateGroupForm closeId="createGroup" />
