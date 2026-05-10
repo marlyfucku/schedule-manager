@@ -16,7 +16,7 @@
   background-color: #f8fafc;
   border-color: #cbd5e1;
   transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 4px rgb(0 0 0 / 5%);
 }
 
 .pair:active {

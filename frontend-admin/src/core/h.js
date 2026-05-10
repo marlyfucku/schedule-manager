@@ -19,15 +19,15 @@ export function h(tag, props, ...children) {
     }
 
     if (props['onMouseEnter']) {
-      const handlerId = registerMouseEnter(props['onMouseEnter'])
-      props['data-mouseenter'] = handlerId
-      delete props['onMouseEnter']
+      const handlerId = registerMouseEnter(props['onMouseEnter']);
+      props['data-mouseenter'] = handlerId;
+      delete props['onMouseEnter'];
     }
 
     if (props['onMouseLeave']) {
-      const handlerId = registerMouseLeave(props['onMouseLeave'])
-      props['data-mouseleave'] = handlerId
-      delete props['onMouseLeave']
+      const handlerId = registerMouseLeave(props['onMouseLeave']);
+      props['data-mouseleave'] = handlerId;
+      delete props['onMouseLeave'];
     }
   }
 
@@ -37,9 +37,9 @@ export function h(tag, props, ...children) {
 
   const attrs = props
     ? Object.entries(props)
-      .filter(([, value]) => !!value) // убрал пустые классы типа 'class=""'
-      .map(([key, value]) => `${key}="${value}"`)
-      .join(' ')
+        .filter(([, value]) => !!value) // убрал пустые классы типа 'class=""'
+        .map(([key, value]) => `${key}="${value}"`)
+        .join(' ')
     : '';
 
   const childrenStr = children.flat().join('');
