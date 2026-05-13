@@ -1,11 +1,10 @@
 import SidebarCategory from './SidebarCategory.jsx'
 import styles from './Sidebar.module.css'
-import { render } from '../core/render.js'
 import { redirect } from '../core/router.js'
 import state from '../state.js'
 
 export default function Sidebar() {
-  const {currentScheduleIndex} = state
+  const { currentScheduleIndex } = state
   const { pathname } = new URL(window.location.href)
   const handleClick = (e, path) => {
     const sidebarButtons = document.querySelectorAll('.sidebarBtn')

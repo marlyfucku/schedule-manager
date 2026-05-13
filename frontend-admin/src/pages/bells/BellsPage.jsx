@@ -38,7 +38,6 @@ export default async function BellsPage() {
   }
 
   return (
-    <>
       <div class={`content ${pages.crudPage}`}>
         <div class={pages.crudHeader}>
           <PageTitle title={`Звонки: ${schedule.name}`} />
@@ -47,6 +46,5 @@ export default async function BellsPage() {
         <BellsTable bells={bellRows} />
         <Modal modalId="editBells" />
       </div>
-    </>
   )
 }
