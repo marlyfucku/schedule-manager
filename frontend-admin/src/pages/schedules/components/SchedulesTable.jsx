@@ -3,6 +3,7 @@ import pages from "../../pages.module.css"
 import { redirect } from "../../../core/router";
 import state from "../../../state";
 import Sidebar from "../../../shared/Sidebar";
+import styles from './SchedulesTable.module.css'
 
 export default function SchedulesTable({ schedules, onEdit, onDelete }) {
   const redirectToLessons = (scheduleId) => {
@@ -26,7 +27,7 @@ export default function SchedulesTable({ schedules, onEdit, onDelete }) {
         </thead>
         <tbody>
           {schedules.map(schedule => (
-            <tr key={schedule.id} onClick={() => redirectToLessons(schedule.id)}>
+            <tr class={styles.scheduleRow} onClick={() => redirectToLessons(schedule.id)}>
               <td>{schedule.name}</td>
               <td>{new Date(schedule.created).toLocaleDateString()}</td>
               <td>{schedule.lessonsInDay}</td>

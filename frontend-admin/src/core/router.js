@@ -9,7 +9,6 @@ export const setRoutes = (routesList) => {
 };
 export const setErrorComponent = (Error) => {
   errorComponent = Error;
-  console.log(errorComponent);
 };
 
 const navigate = pathname => routes
