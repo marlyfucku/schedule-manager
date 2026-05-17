@@ -3,15 +3,12 @@ import state from '../../../../state.js';
 import { pairsToArray } from '../../../../utils/lessons.js';
 import styles from './LessonsTable.module.css'
 
-export default function TableCell({ lessonsInDay, group }) {
+export default function TableCell({ lessonsInDay, group, day }) {
   const handleClick = async (e) => {
-    if (!state.ui.selectedLesson) return;
+    if (!state.ui.selectedWorkload) return;
     if (state.ui.selectedGroup !== group.id) return;
     const lessonNumber = e.target.dataset.lessonnumber
-    console.log(e.target);
-    console.log(lessonNumber);
-    // console.log(state.ui.selectedLesson);
-    const result = await setLesson({...state.ui.selectedLesson, lessonNumber})
+    const result = await setLesson({...state.ui.selectedWorkload, lessonNumber, scheduleId: state.currentScheduleIndex, weekday: day})
     console.log(result);
   }
 

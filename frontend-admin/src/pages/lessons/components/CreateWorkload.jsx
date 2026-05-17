@@ -13,7 +13,7 @@ export default function CreatePairForm({ groups, teachers, subjects, scheduleId 
       groupId: formData.get('groupId'),
       teacherId: formData.get('teacherId'),
       subjectId: formData.get('subjectId'),
-      lessonsCount: formData.get('lessonsCount'),
+      lessonsPerWeek: formData.get('lessonsPerWeek'),
       scheduleId: scheduleId
     }
     const result = await createWorkload(data)
@@ -56,7 +56,7 @@ export default function CreatePairForm({ groups, teachers, subjects, scheduleId 
       <label htmlFor="subjectId">Количество уроков</label>
       <input
         type="number"
-        name="lessonsCount"
+        name="lessonsPerWeek"
         placeholder="Количество уроков"
         required
         min="1"

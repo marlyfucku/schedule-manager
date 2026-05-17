@@ -1,10 +1,16 @@
 // routes/workloads.js
-import { getWorkloads, createWorkload, updateWorkload, deleteWorkload } from '../controllers/workloads.js';
+import { getWorkloads, createWorkload, updateWorkload, deleteWorkload, getWorkloadByScheduleId } from '../controllers/workloads.js';
 
 export default async function workloadsRoutes(fastify) {
   // Получить всю нагрузку (для левой панели)
   fastify.get('/workloads', async (req, reply) => {
     const workloads = await getWorkloads(fastify);
+    reply.send(workloads);
+  });
+
+  fastify.get('/workloads/schedule/:scheduleId', async (req, reply) => {
+    const { scheduleId } = req.params;
+    const workloads = await getWorkloadByScheduleId(fastify, scheduleId);
     reply.send(workloads);
   });
 

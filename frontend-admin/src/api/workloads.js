@@ -1,9 +1,8 @@
 // api/workloads.js
 
-// Получить все нагрузки (для левой панели)
-async function fetchWorkloads() {
+async function fetchWorkloads(scheduleId) {
   try {
-    const response = await fetch('/apiv1/workloads');
+    const response = await fetch(`/apiv1/workloads/schedule/${scheduleId}`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }

@@ -11,8 +11,8 @@ export default async function LessonsPage() {
   const { pathname } = new URL(window.location.href)
   const [, , , scheduleId] = pathname.split('/')
   const scheduleData = await fetchLessons(scheduleId);
-  const workloads = await fetchWorkloads()
-  console.log(11, workloads);
+  console.log('scheduleData', scheduleData);
+  const workloads = await fetchWorkloads(scheduleId)
   const { schedule, lessons, groups, subjects, teachers } = scheduleData;
 
   if (!schedule) {

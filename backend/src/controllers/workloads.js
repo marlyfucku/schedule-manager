@@ -12,14 +12,27 @@ export const getWorkloads = async (fastify) => {
   }
 };
 
-export const createWorkload = async (fastify, data) => {
+export const getWorkloadByScheduleId = async (fastify, scheduleId) => {
   const client = await fastify.pg.connect();
   try {
+    const { rows } = await client.query(workloadsQueries.getByScheduleId, [scheduleId]);
+    return rows;
+  }
+  finally {
+    client.release();
+  }
+};
+
+export const createWorkload = async (fastify, data) => {
+  const client = await fastify.pg.connect();
+  console.log(1111, data);
+  try {
     const result = await client.query(workloadsQueries.create, [
+      data.scheduleId,
       data.groupId,
       data.teacherId,
       data.subjectId,
-      data.lessonsCount,
+      data.lessonsPerWeek,
     ]);
     return { message: 'Нагрузка добавлена!', id: result.rows[0]?.id };
   }

@@ -7,6 +7,7 @@ import TableCell from './TableCell';
 
 export default function LessonsTable({ groups, schedule }) {
   const { weekdays, lessonsInDay } = schedule
+  console.log(123, weekdays);
   const { selectedGroup } = state.ui
 
   return (
@@ -21,7 +22,7 @@ export default function LessonsTable({ groups, schedule }) {
         </tr>
         <tr>
           <th>Пара</th>
-          {weekdays.map((day, idx) => (
+          {weekdays.map(() => (
             <HeadCell lessonsInDay={lessonsInDay} />
           ))}
         </tr>
@@ -30,8 +31,8 @@ export default function LessonsTable({ groups, schedule }) {
         {groups.map((group) => (
           <tr class={selectedGroup === group.id ? 'selectedGroup' : ''}>
             <td>{group.name}</td>
-            {weekdays.map(() => (
-              <TableCell lessonsInDay={lessonsInDay} group={group} />
+            {weekdays.map((day) => (
+              <TableCell lessonsInDay={lessonsInDay} group={group} day={day}/>
             ))}
           </tr>
         ))}

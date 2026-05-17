@@ -91,13 +91,34 @@ export const workloadsQueries = {
     JOIN subjects s ON w.subject_id = s.id
     ORDER BY g.name, s.name
   `,
-  
-  create: `
-    INSERT INTO workloads (group_id, teacher_id, subject_id, lessons_per_week)
-    VALUES ($1, $2, $3, $4)
-    RETURNING id
+
+  getByScheduleId: `
+    SELECT 
+      w.id,
+      w.group_id as "groupId",
+      g.name as "groupName",
+      g.abbreviation as "groupAbbr",
+      w.teacher_id as "teacherId",
+      t.fio as "teacherName",
+      t.position as "teacherPosition",
+      w.subject_id as "subjectId",
+      s.name as "subjectName",
+      s.abbreviation as "subjectAbbr",
+      w.lessons_per_week as "lessonsPerWeek"
+    FROM workloads w
+    JOIN groups g ON w.group_id = g.id
+    JOIN teachers t ON w.teacher_id = t.id
+    JOIN subjects s ON w.subject_id = s.id
+    WHERE w.schedule_id = $1
+    ORDER BY g.name, s.name
   `,
-  
+
+  create: `
+  INSERT INTO workloads (schedule_id, group_id, teacher_id, subject_id, lessons_per_week)
+  VALUES ($1, $2, $3, $4, $5)
+  RETURNING id
+`,
+
   update: `
     UPDATE workloads 
     SET group_id = $1, 
@@ -107,7 +128,7 @@ export const workloadsQueries = {
         updated_at = CURRENT_TIMESTAMP
     WHERE id = $5
   `,
-  
+
   delete: 'DELETE FROM workloads WHERE id = $1',
 };
 
@@ -138,7 +159,7 @@ export const lessonsQueries = {
     JOIN subjects s ON w.subject_id = s.id
     ORDER BY sl.schedule_id, g.name, sl.weekday, sl.lesson_number
   `,
-  
+
   // Получить уроки по конкретному расписанию
   getByScheduleId: `
     SELECT 
@@ -166,14 +187,14 @@ export const lessonsQueries = {
     WHERE sl.schedule_id = $1
     ORDER BY g.name, sl.weekday, sl.lesson_number
   `,
-  
+
   // Создать урок в расписании
   create: `
     INSERT INTO schedule_lessons (workload_id, schedule_id, weekday, lesson_number, classroom)
     VALUES ($1, $2, $3, $4, $5)
     RETURNING id
   `,
-  
+
   // Обновить урок в расписании
   update: `
     UPDATE schedule_lessons 
@@ -181,16 +202,16 @@ export const lessonsQueries = {
     WHERE id = $3
     RETURNING id
   `,
-  
+
   // Удалить урок из расписания
   delete: 'DELETE FROM schedule_lessons WHERE id = $1',
-  
+
   // Найти урок по ячейке
   findByCell: `
     SELECT id FROM schedule_lessons 
     WHERE schedule_id = $1 AND weekday = $2 AND lesson_number = $3
   `,
-  
+
   // Удалить урок по ячейке
   deleteByCell: `
     DELETE FROM schedule_lessons 

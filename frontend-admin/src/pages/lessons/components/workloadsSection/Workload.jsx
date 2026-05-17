@@ -29,7 +29,6 @@ export default function Workload({ workload }) {
   const onMouseLeave = () => {
     render("#infoSection", <InfoSection />)
   }
-  console.log(state.ui);
 
   return (
     <div class={state.ui.workloadId === workload.id ? `${styles.pair} ${styles.active}` : `${styles.pair}` } onMouseEnter = { onMouseEnter }

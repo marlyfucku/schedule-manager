@@ -1,11 +1,22 @@
+// controllers/lessons.js
 import { lessonsQueries } from '../db/queries.js';
+
+export const getLessons = async (fastify) => {
+  const client = await fastify.pg.connect();
+  try {
+    const { rows } = await client.query(lessonsQueries.getAll);
+    return rows;
+  }
+  finally {
+    client.release();
+  }
+};
 
 export const getLessonsByScheduleId = async (fastify, scheduleId) => {
   const client = await fastify.pg.connect();
   try {
-    // Получаем размещённые уроки через запрос из queries
-    const { rows: lessons } = await client.query(
-      lessonsQueries.getByScheduleId, 
+    const { rows: scheduleLessons } = await client.query(
+      lessonsQueries.getByScheduleId,
       [scheduleId]
     );
 
@@ -59,7 +70,7 @@ export const getLessonsByScheduleId = async (fastify, scheduleId) => {
 
     return {
       schedule: scheduleInfo[0],
-      lessons,
+      scheduleLessons,
       groups,
       subjects,
       teachers,
@@ -71,11 +82,42 @@ export const getLessonsByScheduleId = async (fastify, scheduleId) => {
   }
 };
 
-export const getLessons = async (fastify) => {
+export const setLesson = async (fastify, data) => {
   const client = await fastify.pg.connect();
+
   try {
-    const { rows } = await client.query(lessonsQueries.getAll);
-    return rows;
+    // Проверяем, есть ли уже урок в этой ячейке
+    const { rows: [existing] } = await client.query(
+      lessonsQueries.findByCell,
+      [data.scheduleId, data.weekday, data.lessonNumber]
+    );
+
+    // Если ячейка занята, возвращаем ошибку
+    if (existing) {
+      return { 
+        type: 'error', 
+        message: 'Эта ячейка уже занята другим уроком. Сначала удалите существующий урок.' 
+      };
+    }
+
+    // Добавляем урок в ячейку
+    const insertResult = await client.query(lessonsQueries.create, [
+      data.id,
+      data.scheduleId,
+      data.weekday,
+      data.lessonNumber,
+      data.classroom || null,
+    ]);
+
+    return { 
+      type: 'success', 
+      message: 'Урок добавлен в расписание!', 
+      id: insertResult.rows[0].id 
+    };
+  }
+  catch (error) {
+    console.error('Error setting lesson:', error);
+    return { type: 'error', message: error.message };
   }
   finally {
     client.release();
@@ -89,7 +131,7 @@ export const deleteLesson = async (fastify, scheduleLessonId) => {
     return { message: 'Урок удалён из расписания!' };
   }
   catch (error) {
-    console.error('Error deleting schedule lesson:', error);
+    console.error('Error deleting lesson:', error);
     return { type: 'error', message: error.message };
   }
   finally {

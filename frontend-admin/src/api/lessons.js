@@ -33,13 +33,10 @@ async function deleteLesson(scheduledLessonId) {
   }
 }
 
-// api/scheduleLessons.js
-
-// Установить урок в расписание (создать или обновить)
 async function setLesson(data) {
   try {
     const response = await fetch('/apiv1/lessons', {
-      method: 'PUT',
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     });
