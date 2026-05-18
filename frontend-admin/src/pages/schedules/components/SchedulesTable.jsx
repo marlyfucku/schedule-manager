@@ -7,7 +7,7 @@ import styles from './SchedulesTable.module.css'
 
 export default function SchedulesTable({ schedules, onEdit, onDelete }) {
   const redirectToLessons = (scheduleId) => {
-    state.currentScheduleIndex = scheduleId
+    state.currentScheduleId = scheduleId
     redirect(`/admin/lessons/${scheduleId}`)
     render('#sidebarContainer', <Sidebar />)
   }

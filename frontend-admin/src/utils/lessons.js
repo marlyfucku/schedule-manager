@@ -8,9 +8,9 @@ export const daysMap = {
   7: 'воскресенье',
 };
 
-export const pairsToArray = lessonsInDay => Array.from({ length: lessonsInDay }).map((e, i) => i);
+export const pairsToArray = lessonsInDay => Array.from({ length: lessonsInDay }).map((e, i) => ({ text: '' }));
 
-export const scheduleLessonsToTable = (schedule) => {
+export const scheduleToLessons = (schedule) => {
   console.log('schedule', schedule);
 
   const groupsWithDays = schedule.groups.reduce((acc, elem) => {
@@ -29,8 +29,9 @@ export const scheduleLessonsToTable = (schedule) => {
     console.log(1, lesson);
     const { groupId, weekday, lessonNumber } = lesson;
     console.log(2, groupId, weekday, lessonNumber);
-    result[groupId][weekday][lessonNumber] = 111111111;
-  },
-  );
-  console.log('result', result);
+    console.log(3, result[groupId][weekday][lessonNumber]);
+    result[groupId][weekday][lessonNumber - 1] = { text: lesson.subjectAbbr };
+  });
+
+  return result;
 };

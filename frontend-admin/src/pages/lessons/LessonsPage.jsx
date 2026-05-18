@@ -6,15 +6,17 @@ import WorkloadsSection from './components/workloadsSection/WorkloadsSection'
 import styles from './LessonsPage.module.css'
 import InfoSection from './components/InfoSection';
 import { fetchWorkloads } from '../../api/workloads';
-import { scheduleLessonsToTable } from '../../utils/lessons';
+import { scheduleToLessons } from '../../utils/lessons';
+import state from '../../state';
 
 export default async function LessonsPage() {
   const { pathname } = new URL(window.location.href)
   const [, , , scheduleId] = pathname.split('/')
-  const scheduleData = await fetchLessons(scheduleId);
-  scheduleLessonsToTable(scheduleData)
+  state.currentScheduleId = scheduleId
+  const schedule = await fetchLessons(scheduleId);
+  const lessons = scheduleToLessons(scheduleData)
   const workloads = await fetchWorkloads(scheduleId)
-  const { schedule, lessons, groups, subjects, teachers } = scheduleData;
+  const { groups, subjects, teachers } = schedule;
 
   if (!schedule) {
     return <div>Расписание не найдено</div>;

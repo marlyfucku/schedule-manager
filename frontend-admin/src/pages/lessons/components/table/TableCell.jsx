@@ -8,7 +8,7 @@ export default function TableCell({ lessonsInDay, group, day }) {
     if (!state.ui.selectedWorkload) return;
     if (state.ui.selectedGroup !== group.id) return;
     const lessonNumber = e.target.dataset.lessonnumber
-    const result = await setLesson({...state.ui.selectedWorkload, lessonNumber, scheduleId: state.currentScheduleIndex, weekday: day})
+    const result = await setLesson({...state.ui.selectedWorkload, lessonNumber, scheduleId: state.currentScheduleId, weekday: day})
     console.log(result);
   }
 

@@ -1,5 +1,5 @@
 export default {
-  currentScheduleIndex: 1,
+  currentScheduleId: null,
   ui: {
     selectedGroup: null,
     selectedWorkload: null,

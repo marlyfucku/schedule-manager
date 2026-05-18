@@ -4,7 +4,7 @@ import { redirect } from '../core/router.js'
 import state from '../state.js'
 
 export default function Sidebar() {
-  const { currentScheduleIndex } = state
+  const { currentScheduleId } = state
   const { pathname } = new URL(window.location.href)
   const handleClick = (e, path) => {
     const sidebarButtons = document.querySelectorAll('.sidebarBtn')
@@ -16,8 +16,8 @@ export default function Sidebar() {
   return (
     <ol class={styles.sidebar}>
       <SidebarCategory text="Расписания" handler={(e) => handleClick(e, "/admin/schedules")} isActive={pathname.startsWith("/admin/schedules")} />
-      <SidebarCategory text="Сетка уроков" handler={(e) => handleClick(e, `/admin/lessons/${currentScheduleIndex}`)} isActive={pathname.startsWith("/admin/lessons")} />
-      <SidebarCategory text="Звонки" handler={(e) => handleClick(e, `/admin/bells/${currentScheduleIndex}`)} isActive={pathname.startsWith("/admin/bells")} />
+      <SidebarCategory text="Сетка уроков" handler={(e) => handleClick(e, `/admin/lessons/${currentScheduleId}`)} isActive={pathname.startsWith("/admin/lessons")} />
+      <SidebarCategory text="Звонки" handler={(e) => handleClick(e, `/admin/bells/${currentScheduleId}`)} isActive={pathname.startsWith("/admin/bells")} />
       <SidebarCategory text="Группы" handler={(e) => handleClick(e, "/admin/groups")} isActive={pathname === "/admin/groups"} />
       <SidebarCategory text="Предметы" handler={(e) => handleClick(e, "/admin/subjects")} isActive={pathname === "/admin/subjects"} />
       <SidebarCategory text="Преподаватели" handler={(e) => handleClick(e, "/admin/teachers")} isActive={pathname === "/admin/teachers"} />
