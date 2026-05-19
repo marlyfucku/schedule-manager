@@ -1,6 +1,6 @@
 import { setLesson } from '../../../../api/lessons.js';
 import state from '../../../../state.js';
-import { pairsToArray } from '../../../../utils/lessons.js';
+import { lessonsToArray } from '../../../../utils/lessons.js';
 import styles from './LessonsTable.module.css'
 
 export default function TableCell({ lessonsInDay, group, day }) {
@@ -12,7 +12,7 @@ export default function TableCell({ lessonsInDay, group, day }) {
     console.log(result);
   }
 
-  const pairsInDay = pairsToArray(lessonsInDay)
+  const pairsInDay = lessonsToArray(lessonsInDay)
   return (
     <td>
       <div class={styles.pairsContainer}>

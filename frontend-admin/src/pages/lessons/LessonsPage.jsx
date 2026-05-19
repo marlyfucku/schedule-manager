@@ -1,6 +1,6 @@
 import { fetchLessons } from '../../api/lessons';
 import Modal from '../../shared/Modal';
-import CreatePairForm from './components/CreateWorkload';
+import CreateWorkload from './components/CreateWorkload';
 import LessonsTable from './components/table/LessonsTable';
 import WorkloadsSection from './components/workloadsSection/WorkloadsSection'
 import styles from './LessonsPage.module.css'
@@ -13,12 +13,14 @@ export default async function LessonsPage() {
   const { pathname } = new URL(window.location.href)
   const [, , , scheduleId] = pathname.split('/')
   state.currentScheduleId = scheduleId
-  const schedule = await fetchLessons(scheduleId);
-  const lessons = scheduleToLessons(scheduleData)
+  const scheduleData = await fetchLessons(scheduleId);
+  // const { lessons } = scheduleToLessons(scheduleData)
   const workloads = await fetchWorkloads(scheduleId)
-  const { groups, subjects, teachers } = schedule;
+  // const { subjects, teachers } = scheduleData;
+  const { weekdays, lessonsInDay, groups, teachers, subjects, schedule } = scheduleData
+  const data = scheduleToLessons(scheduleData)
 
-  if (!schedule) {
+  if (!scheduleData) {
     return <div>Расписание не найдено</div>;
   }
 
@@ -29,11 +31,11 @@ export default async function LessonsPage() {
       </div>
 
       <div class={styles.tableWrapper}>
-        <LessonsTable
+        {/* <LessonsTable
           lessons={lessons}
-          groups={groups}
-          schedule={schedule}
-        />
+          weekdays={weekdays}
+          lessonsInDay={lessonsInDay}
+        /> */}
       </div>
 
       <div class={styles.bottomContainer}>
@@ -45,7 +47,7 @@ export default async function LessonsPage() {
         </div>
       </div>
       <Modal modalId="createLesson">
-        <CreatePairForm teachers={teachers} groups={groups} subjects={subjects} scheduleId={scheduleId} />
+        <CreateWorkload teachers={teachers} groups={groups} subjects={subjects} scheduleId={scheduleId} />
       </Modal>
     </div>
   );

@@ -4,7 +4,7 @@ import { ui } from '../../../utils/dom'
 import LessonsPage from '../LessonsPage';
 import { createWorkload } from '../../../api/workloads';
 
-export default function CreatePairForm({ groups, teachers, subjects, scheduleId }) {
+export default function CreateWorkload({ groups, teachers, subjects, scheduleId }) {
 
   const onSubmit = async (e) => {
     e.preventDefault()

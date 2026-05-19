@@ -8,30 +8,20 @@ export const daysMap = {
   7: 'воскресенье',
 };
 
-export const pairsToArray = lessonsInDay => Array.from({ length: lessonsInDay }).map((e, i) => ({ text: '' }));
+export const lessonsToArray = lessonsInDay => Array.from({ length: lessonsInDay }).map(() => ({ text: '' }));
 
-export const scheduleToLessons = (schedule) => {
-  console.log('schedule', schedule);
+export const scheduleToLessons = (scheduleData) => {
+  console.log('scheduleData', scheduleData);
+  const { schedule, scheduleLessons, groups } = scheduleData;
+  const weekdays = schedule.weekdays.slice().map((day) => ({ dayIndex: day, lessons: lessonsToArray(schedule.lessonsInDay) }))
+  const newGroups = structuredClone(groups).map((group) => ({ ...group, weekdays }));
 
-  const groupsWithDays = schedule.groups.reduce((acc, elem) => {
-    const weekdaysObject = schedule.schedule.weekdays.reduce((acc, elem) => ({ ...acc, [elem]: [] }), {});
-    return { ...acc, [elem.id]: (structuredClone(weekdaysObject)) };
-  }, {});
-  const result = Object.keys(groupsWithDays).reduce((acc, elem) => {
-    const lessonsInDay = pairsToArray(schedule.schedule.lessonsInDay);
-    const days = Object.keys(groupsWithDays[elem]).reduce((acc, elem) => {
-      return { ...acc, [elem]: lessonsInDay.slice() };
-    }, {});
-    return { ...acc, [elem]: days };
-  }, {});
-
-  schedule.scheduleLessons.forEach((lesson) => {
-    console.log(1, lesson);
-    const { groupId, weekday, lessonNumber } = lesson;
-    console.log(2, groupId, weekday, lessonNumber);
-    console.log(3, result[groupId][weekday][lessonNumber]);
-    result[groupId][weekday][lessonNumber - 1] = { text: lesson.subjectAbbr };
+  scheduleLessons.forEach(lesson => {
+    const currentGroup = newGroups.find((group) => group.id === lesson.groupId);
+    const currentWeekday = currentGroup.weekdays.find(weekday => weekday.dayIndex === lesson.weekday)
+    const currentLesson = currentWeekday.lessons[lesson.lessonNumber - 1];
+    currentLesson.text = lesson.groupAbbr;
   });
 
-  return result;
+  return newGroups;
 };

@@ -1,8 +1,8 @@
-import { pairsToArray } from '../../../../utils/lessons';
+import { lessonsToArray } from '../../../../utils/lessons';
 import styles from './LessonsTable.module.css'
 
 export default function HeadCell({ lessonsInDay }) {
-  const pairsInDay = pairsToArray(lessonsInDay)
+  const pairsInDay = lessonsToArray(lessonsInDay)
   return (
     <td>
       <div class={styles.pairsContainer}>

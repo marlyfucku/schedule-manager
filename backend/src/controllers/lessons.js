@@ -83,8 +83,6 @@ export const getLessonsByScheduleId = async (fastify, scheduleId) => {
 };
 
 export const setLesson = async (fastify, data) => {
-  console.log('11123123123', data);
-
   const client = await fastify.pg.connect();
 
   try {
