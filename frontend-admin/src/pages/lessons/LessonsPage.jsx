@@ -7,12 +7,12 @@ import styles from './LessonsPage.module.css'
 import InfoSection from './components/InfoSection';
 import { fetchWorkloads } from '../../api/workloads';
 import { scheduleToGroups } from '../../utils/lessons';
-import state from '../../state/state';
+import store from '../../state/store';
 
 export default async function LessonsPage() {
   const { pathname } = new URL(window.location.href)
   const [, , , scheduleId] = pathname.split('/')
-  state.currentScheduleId = scheduleId
+  store.currentScheduleId = scheduleId
   const scheduleData = await fetchLessons(scheduleId);
   // const { lessons } = scheduleToLessons(scheduleData)
   const workloads = await fetchWorkloads(scheduleId)

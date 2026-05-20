@@ -1,8 +1,8 @@
 import { fetchSchedules } from '../api/schedules';
-import state from './state';
+import store from './store';
 
 export async function initializeLocalState() {
-  if (state.currentScheduleId !== null) {
+  if (store.currentScheduleId !== null) {
     return;
   }
 
@@ -12,5 +12,5 @@ export async function initializeLocalState() {
     return;
   }
 
-  state.currentScheduleId = schedules[0].id;
+  store.currentScheduleId = schedules[0].id;
 }

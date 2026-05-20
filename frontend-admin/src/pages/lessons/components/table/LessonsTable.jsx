@@ -1,4 +1,4 @@
-import state from '../../../../state/state';
+import store from '../../../../state/store';
 import { daysMap } from '../../../../utils/lessons';
 import HeadCell from './HeadCell';
 import styles from './LessonsTable.module.css'
@@ -6,7 +6,7 @@ import TableCell from './TableCell';
 
 
 export default function LessonsTable({ lessonsByGroups, weekdays, lessonsInDay }) {
-  const { selectedGroup } = state.ui
+  const { selectedGroup } = store.ui
 
   return (
     <table class={styles.table}>

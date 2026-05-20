@@ -1,19 +1,19 @@
 import { setLesson } from '../../../../api/lessons.js';
 import { refreshPage } from '../../../../core/router.js';
-import state from '../../../../state/state.js';
+import store from '../../../../state/store.js';
 import { ui } from '../../../../utils/dom.js';
 import { lessonsToArray } from '../../../../utils/lessons.js';
 import styles from './LessonsTable.module.css'
 
 export default function TableCell({ lessons, weekday, group }) {
   const handleClick = async (lesson) => {
-    if (!state.ui.selectedWorkload) return;
-    if (state.ui.selectedGroup !== group.id) return;
+    if (!store.ui.selectedWorkload) return;
+    if (store.ui.selectedGroup !== group.id) return;
     console.log('click');
     const {lessonNumber} = lesson
-    console.log(2, state.ui.selectedWorkload);
-    console.log(1, {...state.ui.selectedWorkload, lessonNumber, scheduleId: state.currentScheduleId, weekday});
-    const result = await setLesson({...state.ui.selectedWorkload, lessonNumber, scheduleId: state.currentScheduleId, weekday})
+    console.log(2, store.ui.selectedWorkload);
+    console.log(1, {...store.ui.selectedWorkload, lessonNumber, scheduleId: store.currentScheduleId, weekday});
+    const result = await setLesson({...store.ui.selectedWorkload, lessonNumber, scheduleId: store.currentScheduleId, weekday})
     ui.showFlashMessage(result)
     refreshPage()
   }

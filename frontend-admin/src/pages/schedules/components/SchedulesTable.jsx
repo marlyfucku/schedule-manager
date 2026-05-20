@@ -1,13 +1,13 @@
 import { render } from "../../../core/render";
 import pages from "../../pages.module.css"
 import { redirect } from "../../../core/router";
-import state from "../../../state/state";
+import store from "../../../state/store";
 import Sidebar from "../../../shared/Sidebar";
 import styles from './SchedulesTable.module.css'
 
 export default function SchedulesTable({ schedules, onEdit, onDelete }) {
   const redirectToLessons = (scheduleId) => {
-    state.currentScheduleId = scheduleId
+    store.currentScheduleId = scheduleId
     redirect(`/admin/lessons/${scheduleId}`)
     render('#sidebarContainer', <Sidebar />)
   }

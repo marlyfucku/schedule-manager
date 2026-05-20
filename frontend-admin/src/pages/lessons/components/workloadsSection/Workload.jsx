@@ -1,6 +1,6 @@
 import { render } from '../../../../core/render';
 import { refreshPage } from '../../../../core/router';
-import state from '../../../../state/state';
+import store from '../../../../state/store';
 import { deleteWorkload } from '../../../../api/workloads';
 import { ui } from '../../../../utils/dom';
 import InfoSection from '../InfoSection';
@@ -23,9 +23,9 @@ export default function Workload({ workload }) {
     ])
   }
   const selectPair = () => {
-    state.ui.selectedGroup = workload.groupId
-    state.ui.selectedWorkload = workload
-    state.ui.workloadId = workload.id
+    store.ui.selectedGroup = workload.groupId
+    store.ui.selectedWorkload = workload
+    store.ui.workloadId = workload.id
     refreshPage()
   }
   const onMouseEnter = () => {
@@ -36,7 +36,7 @@ export default function Workload({ workload }) {
   }
 
   return (
-    <div class={state.ui.workloadId === workload.id ? `${styles.pair} ${styles.active}` : `${styles.pair}` } onMouseEnter = { onMouseEnter }
+    <div class={store.ui.workloadId === workload.id ? `${styles.pair} ${styles.active}` : `${styles.pair}` } onMouseEnter = { onMouseEnter }
   onMouseLeave = { onMouseLeave } onClick = { selectPair } onContextMenu = { handleContextMenu } >
       <div class={styles.subjectName}>{workload.subjectAbbr}</div>
       <div class={styles.divider}></div>
