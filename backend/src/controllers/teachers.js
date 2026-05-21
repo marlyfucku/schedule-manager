@@ -1,4 +1,4 @@
-import { teachersQueries } from '../db/queries.js';
+import { teachersQueries } from '../db/queries/teachers.js';
 
 export const getTeachers = async (fastify) => {
   const client = await fastify.pg.connect();

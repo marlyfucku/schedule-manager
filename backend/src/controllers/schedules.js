@@ -1,4 +1,5 @@
-import { bellsQueries, schedulesQueries } from '../db/queries.js';
+import { bellsQueries } from '../db/queries/bells.js';
+import { schedulesQueries } from '../db/queries/schedules.js';
 import { buildDefaultBells } from '../utils/defaultBells.js';
 
 export const getSchedules = async (fastify) => {

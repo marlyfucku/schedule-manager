@@ -1,4 +1,4 @@
-import { groupsQueries } from '../db/queries.js';
+import { groupsQueries } from '../db/queries/groups.js';
 
 export const getGroups = async (fastify) => {
   const client = await fastify.pg.connect();

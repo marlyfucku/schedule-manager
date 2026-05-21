@@ -1,4 +1,4 @@
-import { bellsQueries } from '../db/queries.js';
+import { bellsQueries } from '../db/queries/bells.js';
 
 export const getBellsByScheduleId = async (fastify, scheduleId) => {
   const client = await fastify.pg.connect();

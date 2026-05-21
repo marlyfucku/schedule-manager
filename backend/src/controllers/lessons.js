@@ -1,5 +1,5 @@
 // controllers/lessons.js
-import { lessonsQueries } from '../db/queries.js';
+import { lessonsQueries } from '../db/queries/lessons.js';
 
 export const getLessons = async (fastify) => {
   const client = await fastify.pg.connect();

@@ -1,4 +1,4 @@
-import { subjectsQueries } from '../db/queries.js';
+import { subjectsQueries } from '../db/queries/subjects.js';
 
 export const getSubjects = async (fastify) => {
   const client = await fastify.pg.connect();
