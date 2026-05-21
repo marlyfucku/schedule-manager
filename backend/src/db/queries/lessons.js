@@ -1,91 +1,54 @@
 export const lessonsQueries = {
-  // Получить все размещённые уроки
-  getAll: `
-    SELECT
-      sl.id as "scheduledLessonId",
+  getByScheduleId: `
+    SELECT 
+      sl.id,
       sl.schedule_id as "scheduleId",
-      sl.workload_id as "workloadId",
       sl.weekday,
       sl.lesson_number as "lessonNumber",
       sl.classroom,
-      w.group_id as "groupId",
-      g.name as "groupName",
-      g.abbreviation as "groupAbbr",
-      w.teacher_id as "teacherId",
-      t.fio as "teacherName",
-      t.position as "teacherPosition",
-      w.subject_id as "subjectId",
-      s.name as "subjectName",
-      s.abbreviation as "subjectAbbr",
-      w.lessons_per_week as "lessonsPerWeek"
+      sl.group_id as "groupId",
+      sl.group_name as "groupName",
+      sl.group_abbr as "groupAbbr",
+      sl.teacher_id as "teacherId",
+      sl.teacher_name as "teacherName",
+      sl.subject_id as "subjectId",
+      sl.subject_name as "subjectName",
+      sl.subject_abbr as "subjectAbbr"
     FROM schedule_lessons sl
-    JOIN workloads w ON sl.workload_id = w.id
+    WHERE sl.schedule_id = $1
+    ORDER BY sl.group_name, sl.weekday, sl.lesson_number
+  `,
+
+  findByCell: `
+    SELECT id FROM schedule_lessons 
+    WHERE schedule_id = $1 AND weekday = $2 AND lesson_number = $3 AND group_id = $4
+  `,
+
+  getWorkloadData: `
+    SELECT 
+      w.group_id,
+      g.name as group_name,
+      w.teacher_id,
+      t.fio as teacher_name,
+      w.subject_id,
+      s.name as subject_name,
+      s.abbreviation as subject_abbr
+    FROM workloads w
     JOIN groups g ON w.group_id = g.id
     JOIN teachers t ON w.teacher_id = t.id
     JOIN subjects s ON w.subject_id = s.id
-    ORDER BY sl.schedule_id, g.name, sl.weekday, sl.lesson_number
+    WHERE w.id = $1
   `,
 
-  // Получить уроки по конкретному расписанию
-  getByScheduleId: `
-  SELECT
-    sl.id as "scheduledLessonId",
-    sl.schedule_id as "scheduleId",
-    sl.workload_id as "workloadId",
-    sl.weekday,
-    sl.lesson_number as "lessonNumber",
-    sl.classroom,
-    w.group_id as "groupId",
-    g.name as "groupName",
-    g.abbreviation as "groupAbbr",
-    w.teacher_id as "teacherId",
-    t.fio as "teacherName",
-    t.position as "teacherPosition",
-    w.subject_id as "subjectId",
-    s.name as "subjectName",
-    s.abbreviation as "subjectAbbr",
-    w.lessons_per_week as "lessonsPerWeek"
-  FROM schedule_lessons sl
-   JOIN workloads w ON sl.workload_id = w.id
-   JOIN groups g ON w.group_id = g.id
-   JOIN teachers t ON w.teacher_id = t.id
-   JOIN subjects s ON w.subject_id = s.id
-  WHERE sl.schedule_id = $1
-  ORDER BY g.name, sl.weekday, sl.lesson_number
-`,
-
-  // Создать урок в расписании
   create: `
-    INSERT INTO schedule_lessons (workload_id, schedule_id, weekday, lesson_number, classroom)
-    VALUES ($1, $2, $3, $4, $5)
+    INSERT INTO schedule_lessons (
+      schedule_id, weekday, lesson_number, classroom,
+      group_id, group_name,
+      teacher_id, teacher_name,
+      subject_id, subject_name, subject_abbr
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
     RETURNING id
   `,
 
-  // Обновить урок в расписании
-  update: `
-    UPDATE schedule_lessons
-    SET workload_id = $1, classroom = $2, updated_at = CURRENT_TIMESTAMP
-    WHERE id = $3
-    RETURNING id
-  `,
-
-  // Удалить урок из расписания
   delete: 'DELETE FROM schedule_lessons WHERE id = $1',
-
-  // Найти урок по ячейке
-  findByCell: `
-  SELECT sl.id
-  FROM schedule_lessons sl
-  JOIN workloads w ON sl.workload_id = w.id
-  WHERE sl.schedule_id = $1
-    AND sl.weekday = $2
-    AND sl.lesson_number = $3
-    AND w.group_id = $4
-`,
-
-  // Удалить урок по ячейке
-  deleteByCell: `
-    DELETE FROM schedule_lessons
-    WHERE schedule_id = $1 AND weekday = $2 AND lesson_number = $3
-  `,
 };

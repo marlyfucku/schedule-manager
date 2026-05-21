@@ -12,7 +12,7 @@ import store from '../../state/store';
 export default async function LessonsPage() {
   const { pathname } = new URL(window.location.href)
   const [, , , scheduleId] = pathname.split('/')
-  store.currentScheduleId = scheduleId
+  store.currentScheduleId = Number(scheduleId)
   const scheduleData = await fetchLessons(scheduleId);
   // const { lessons } = scheduleToLessons(scheduleData)
   const workloads = await fetchWorkloads(scheduleId)

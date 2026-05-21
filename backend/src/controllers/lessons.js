@@ -1,26 +1,14 @@
 // controllers/lessons.js
 import { lessonsQueries } from '../db/queries/lessons.js';
 
-export const getLessons = async (fastify) => {
-  const client = await fastify.pg.connect();
-  try {
-    const { rows } = await client.query(lessonsQueries.getAll);
-    return rows;
-  }
-  finally {
-    client.release();
-  }
-};
-
+// Получить все уроки по расписанию
 export const getLessonsByScheduleId = async (fastify, scheduleId) => {
   const client = await fastify.pg.connect();
   try {
-    const { rows: scheduleLessons } = await client.query(
+    const { rows: lessons } = await client.query(
       lessonsQueries.getByScheduleId,
-      [scheduleId],
+      [scheduleId]
     );
-
-    console.log('ROWS', scheduleLessons);
 
     // Получаем информацию о расписании
     const { rows: scheduleInfo } = await client.query(`
@@ -50,10 +38,11 @@ export const getLessonsByScheduleId = async (fastify, scheduleId) => {
       ORDER BY fio
     `);
 
-    // Получаем всю нагрузку (для левой панели)
+    // Получаем нагрузку для левой панели
     const { rows: workloads } = await client.query(`
       SELECT 
         w.id,
+        w.schedule_id as "scheduleId",
         w.group_id as "groupId",
         g.name as "groupName",
         g.abbreviation as "groupAbbr",
@@ -67,12 +56,13 @@ export const getLessonsByScheduleId = async (fastify, scheduleId) => {
       JOIN groups g ON w.group_id = g.id
       JOIN teachers t ON w.teacher_id = t.id
       JOIN subjects s ON w.subject_id = s.id
+      WHERE w.schedule_id = $1
       ORDER BY g.name, s.name
-    `);
+    `, [scheduleId]);
 
     return {
       schedule: scheduleInfo[0],
-      scheduleLessons,
+      lessons,
       groups,
       subjects,
       teachers,
@@ -84,30 +74,45 @@ export const getLessonsByScheduleId = async (fastify, scheduleId) => {
   }
 };
 
+// Добавить урок в расписание
 export const setLesson = async (fastify, data) => {
   const client = await fastify.pg.connect();
-
+  
   try {
-    // Проверяем, есть ли уже урок для этой группы в этой ячейке
+    console.log(1111, data);
+    // Проверяем, не занята ли ячейка
     const { rows: [existing] } = await client.query(
       lessonsQueries.findByCell,
-      [data.scheduleId, data.weekday, data.lessonNumber, data.groupId],
+      [data.scheduleId, data.weekday, data.lessonNumber, data.groupId]
     );
 
     if (existing) {
-      return {
-        type: 'error',
-        message: 'У этой группы уже есть урок в этой ячейке',
-      };
+      return { type: 'error', message: 'Эта ячейка уже занята' };
     }
 
-    // Добавляем урок
+    // Получаем данные из workload
+    const { rows: [workload] } = await client.query(
+      lessonsQueries.getWorkloadData,
+      [data.workloadId]
+    );
+
+    if (!workload) {
+      return { type: 'error', message: 'Нагрузка не найдена' };
+    }
+
+    // Создаём урок с копией данных
     const insertResult = await client.query(lessonsQueries.create, [
-      data.workloadId,
       data.scheduleId,
       data.weekday,
       data.lessonNumber,
       data.classroom || null,
+      workload.group_id,
+      workload.group_name,
+      workload.teacher_id,
+      workload.teacher_name,
+      workload.subject_id,
+      workload.subject_name,
+      workload.subject_abbr,
     ]);
 
     return {
@@ -125,11 +130,12 @@ export const setLesson = async (fastify, data) => {
   }
 };
 
-export const deleteLesson = async (fastify, scheduleLessonId) => {
+// Удалить урок из расписания
+export const deleteLesson = async (fastify, lessonId) => {
   const client = await fastify.pg.connect();
   try {
-    await client.query(lessonsQueries.delete, [scheduleLessonId]);
-    return { message: 'Урок удалён из расписания!' };
+    await client.query(lessonsQueries.delete, [lessonId]);
+    return { type: 'success', message: 'Урок удалён из расписания!' };
   }
   catch (error) {
     console.error('Error deleting lesson:', error);

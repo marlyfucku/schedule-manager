@@ -6,7 +6,6 @@ async function fetchLessons(scheduleId) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
-    console.log(123123123, data);
     return data;
   }
   catch (error) {
@@ -51,23 +50,4 @@ async function setLesson(data) {
   }
 }
 
-// Удалить урок из расписания
-async function removeLesson(scheduleLessonId) {
-  try {
-    const response = await fetch('/apiv1/lessons', {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(scheduleLessonId),
-    });
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const message = await response.json();
-    return { type: 'success', ...message };
-  }
-  catch (error) {
-    return { type: 'error', message: error.message };
-  }
-}
-
-export { fetchLessons, deleteLesson, setLesson, removeLesson };
+export { fetchLessons, deleteLesson, setLesson };

@@ -12,19 +12,19 @@ export const lessonsToArray = lessonsInDay => Array.from({ length: lessonsInDay 
 
 export const scheduleToGroups = (scheduleData) => {
   console.log('scheduleData', scheduleData);
-  const { schedule, scheduleLessons, groups } = scheduleData;
+  const { schedule, lessons, groups } = scheduleData;
   const newGroups = structuredClone(groups).map((group) => {
     const weekdays = schedule.weekdays.slice().map(day => ({ dayIndex: day, lessons: lessonsToArray(schedule.lessonsInDay) }));
     return { ...group, weekdays };
   });
 
-  scheduleLessons.forEach((lesson) => {
+  lessons.forEach((lesson) => {
     const currentGroup = newGroups.find(group => group.id === lesson.groupId);
     console.log(122, lesson);
     console.log(123, newGroups);
     const currentWeekday = currentGroup.weekdays.find(weekday => weekday.dayIndex === lesson.weekday);
     const currentLesson = currentWeekday.lessons[lesson.lessonNumber - 1];
-    currentLesson.text = lesson.groupAbbr;
+    currentLesson.text = currentGroup.abbreviation;
     currentLesson.style = 'booked';
   });
 

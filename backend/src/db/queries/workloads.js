@@ -1,10 +1,8 @@
 export const workloadsQueries = {
-  findById: `
-    SELECT lessons_per_week FROM workloads WHERE id = $1
-  `,
   getByScheduleId: `
-    SELECT
+    SELECT 
       w.id as "workloadId",
+      w.schedule_id as "scheduleId",
       w.group_id as "groupId",
       g.name as "groupName",
       g.abbreviation as "groupAbbr",
@@ -23,29 +21,23 @@ export const workloadsQueries = {
     ORDER BY g.name, s.name
   `,
 
+  findById: `
+    SELECT lessons_per_week FROM workloads WHERE id = $1
+  `,
+
   create: `
-  INSERT INTO workloads (schedule_id, group_id, teacher_id, subject_id, lessons_per_week)
-  VALUES ($1, $2, $3, $4, $5)
-  RETURNING id
+    INSERT INTO workloads (schedule_id, group_id, teacher_id, subject_id, lessons_per_week)
+    VALUES ($1, $2, $3, $4, $5)
+    RETURNING id
   `,
 
-  update: `
-    UPDATE workloads
-    SET group_id = $1,
-        teacher_id = $2,
-        subject_id = $3,
-        lessons_per_week = $4,
+  decrement: `
+    UPDATE workloads 
+    SET lessons_per_week = lessons_per_week - 1,
         updated_at = CURRENT_TIMESTAMP
-    WHERE id = $5
+    WHERE id = $1
+    RETURNING lessons_per_week
   `,
-
-  decrementWorkload: `
-  UPDATE workloads
-  SET lessons_per_week = lessons_per_week - 1,
-      updated_at = CURRENT_TIMESTAMP
-  WHERE id = $1
-  RETURNING lessons_per_week
-`,
 
   delete: 'DELETE FROM workloads WHERE id = $1',
 };

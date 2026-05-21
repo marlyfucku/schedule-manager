@@ -1,6 +1,7 @@
 // controllers/workloads.js
 import { workloadsQueries } from '../db/queries/workloads.js';
 
+// Получить все нагрузки по расписанию
 export const getWorkloadByScheduleId = async (fastify, scheduleId) => {
   const client = await fastify.pg.connect();
   try {
@@ -12,6 +13,7 @@ export const getWorkloadByScheduleId = async (fastify, scheduleId) => {
   }
 };
 
+// Создать нагрузку
 export const createWorkload = async (fastify, data) => {
   const client = await fastify.pg.connect();
   try {
@@ -22,7 +24,7 @@ export const createWorkload = async (fastify, data) => {
       data.subjectId,
       data.lessonsPerWeek,
     ]);
-    return { message: 'Нагрузка добавлена!', id: result.rows[0]?.id };
+    return { type: 'success', message: 'Нагрузка добавлена!', id: result.rows[0]?.id };
   }
   catch (error) {
     console.error('Error creating workload:', error);
@@ -33,72 +35,42 @@ export const createWorkload = async (fastify, data) => {
   }
 };
 
-export const updateWorkload = async (fastify, data) => {
-  const client = await fastify.pg.connect();
-  try {
-    await client.query(workloadsQueries.update, [
-      data.groupId,
-      data.teacherId,
-      data.subjectId,
-      data.lessonsPerWeek,
-      data.id,
-    ]);
-    return { message: 'Нагрузка обновлена!' };
-  }
-  catch (error) {
-    console.error('Error updating workload:', error);
-    return { type: 'error', message: error.message };
-  }
-  finally {
-    client.release();
-  }
-};
-
+// Уменьшить нагрузку на 1 (при добавлении урока)
 export const decrementWorkload = async (fastify, workloadId) => {
   const client = await fastify.pg.connect();
   try {
     const { rows: [workload] } = await client.query(
-      'SELECT lessons_per_week FROM workloads WHERE id = $1',
+      workloadsQueries.findById,
       [workloadId]
     );
-
-    console.log('Текущее значение:', workload?.lessons_per_week);
 
     if (!workload) {
       return { type: 'error', message: 'Нагрузка не найдена' };
     }
 
-    // В decrementWorkload
-    if (workload.lessons_per_week === 1) {
-      // Просто обнуляем до 0, НЕ УДАЛЯЕМ
-      await client.query('UPDATE workloads SET lessons_per_week = 0 WHERE id = $1', [workloadId]);
-      return { type: 'success', message: 'Нагрузка полностью использована' };
+    if (workload.lessons_per_week <= 0) {
+      return { type: 'error', message: 'Нельзя уменьшить, нагрузка уже на нуле' };
     }
 
-    // Уменьшаем на 1
+    // Если осталась 1 пара — удаляем нагрузку
+    if (workload.lessons_per_week === 1) {
+      await client.query(workloadsQueries.delete, [workloadId]);
+      return { type: 'success', message: 'Нагрузка полностью использована и удалена' };
+    }
+
+    // Иначе уменьшаем на 1
     const { rows: [updated] } = await client.query(
-      'UPDATE workloads SET lessons_per_week = lessons_per_week - 1 WHERE id = $1 RETURNING lessons_per_week',
+      workloadsQueries.decrement,
       [workloadId]
     );
 
-    console.log('После уменьшения:', updated.lessons_per_week);
-
-    // Если после уменьшения стало 0 — удаляем
-    if (updated.lessons_per_week === 0) {
-      await client.query('DELETE FROM workloads WHERE id = $1', [workloadId]);
-      return {
-        type: 'success',
-        message: 'Нагрузка полностью использована и удалена'
-      };
-    }
-
-    return {
-      type: 'success',
-      message: 'Количество оставшихся пар: ' + updated.lessons_per_week
+    return { 
+      type: 'success', 
+      message: 'Осталось пар: ' + updated.lessons_per_week 
     };
   }
   catch (error) {
-    console.error('Error:', error);
+    console.error('Error decrementing workload:', error);
     return { type: 'error', message: error.message };
   }
   finally {
@@ -106,11 +78,12 @@ export const decrementWorkload = async (fastify, workloadId) => {
   }
 };
 
+// Удалить нагрузку (явное действие пользователя)
 export const deleteWorkload = async (fastify, workloadId) => {
   const client = await fastify.pg.connect();
   try {
     await client.query(workloadsQueries.delete, [workloadId]);
-    return { message: 'Нагрузка удалена!' };
+    return { type: 'success', message: 'Нагрузка удалена!' };
   }
   catch (error) {
     console.error('Error deleting workload:', error);
