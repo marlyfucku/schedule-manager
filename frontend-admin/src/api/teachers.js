@@ -1,3 +1,14 @@
+/**
+ * @typedef {import('./teachers.types.js').TeacherDTO} TeacherDTO
+ * @typedef {import('./teachers.types.js').CreateTeacherBody} CreateTeacherBody
+ * @typedef {import('./teachers.types.js').UpdateTeacherBody} UpdateTeacherBody
+ * @typedef {import('./teachers.types.js').TeacherActionResult} TeacherActionResult
+ */
+
+/**
+ * @returns {Promise<TeacherDTO[]|void>}
+ */
+
 async function fetchTeachers() {
   try {
     const response = await fetch('/apiv1/teachers');
@@ -11,6 +22,11 @@ async function fetchTeachers() {
     console.error('Fetch error:', error);
   }
 }
+
+/**
+ * @param {CreateTeacherBody} data
+ * @returns {Promise<TeacherActionResult>}
+ */
 
 async function createTeacher(data) {
   try {
@@ -32,6 +48,11 @@ async function createTeacher(data) {
   }
 }
 
+/**
+ * @param {UpdateTeacherBody} data
+ * @returns {Promise<TeacherActionResult>}
+ */
+
 async function updateTeacher(data) {
   try {
     const response = await fetch('/apiv1/teachers', {
@@ -51,6 +72,11 @@ async function updateTeacher(data) {
     return { type: 'error', message: error.message };
   }
 }
+
+/**
+ * @param {number} teacherId
+ * @returns {Promise<TeacherActionResult>}
+ */
 
 async function deleteTeacher(teacherId) {
   try {
