@@ -1,9 +1,9 @@
 install-git-hooks:
-	mkdir -p hooks
+	mkdir -p .git/hooks
 	echo '#!/bin/sh' > .git/hooks/pre-push
-	echo 'make pre-push || exit 1' >> hooks/pre-push
-	chmod +x hooks/pre-push
-	git config core.hooksPath hooks
+	echo 'make pre-push || exit 1' >> .git/hooks/pre-push
+	chmod +x .git/hooks/pre-push
+	git config core.hooksPath .git/hooks
 	@echo "✅ Git hooks installed"
 .PHONY: setup
 
