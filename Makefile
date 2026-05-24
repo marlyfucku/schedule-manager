@@ -1,6 +1,14 @@
+install-git-hooks:
+	mkdir -p hooks
+	echo '#!/bin/sh' > hooks/pre-push
+	echo 'make pre-push || exit 1' >> hooks/pre-push
+	chmod +x hooks/pre-push
+	git config core.hooksPath hooks
+	@echo "✅ Git hooks installed"
 .PHONY: setup
 
 setup:
+	make install-git-hooks
 	npm ci
 	cd backend && npm ci
 	cd frontend-admin && npm ci
