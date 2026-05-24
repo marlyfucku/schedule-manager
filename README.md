@@ -4,16 +4,6 @@
 
 `schedule-manager-vanilla` — веб-приложение для управления учебным расписанием.
 
-Проект включает:
-
-- административную часть для работы с расписаниями;
-- публичную часть для просмотра расписания;
-- CRUD-разделы для преподавателей, групп, предметов и аудиторий;
-- работу со звонками, нагрузками и размещением уроков в расписании;
-- API между frontend-приложениями и backend через `/apiv1`.
-
-Публичная часть сейчас ориентирована на просмотр расписания по преподавателям и группам.
-
 ## Стек
 
 ### Backend
@@ -27,11 +17,11 @@
 
 ### Frontend
 
-- JavaScript без TypeScript.
+- JavaScript.
 - Vite.
 - `frontend-admin` — административная часть.
 - `frontend-public` — публичная часть.
-- Собственный JSX/core: `h`, `Fragment`, `render`, `router`, `handlers`, `initWood`.
+- Собственный JSX/core **wood-js**: `h`, `Fragment`, `render`, `router`, `handlers`, `initWood`.
 - CSS и CSS Modules.
 
 ### Tooling
