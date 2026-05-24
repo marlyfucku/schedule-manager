@@ -49,6 +49,8 @@ export const updateSchedule = async (fastify, data) => {
     await client.query(schedulesQueries.update, [
       data.name,
       data.lessonsInDay,
+      data.type,
+      data.startDate,
       data.weekdays,
       data.id,
     ]);

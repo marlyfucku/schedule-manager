@@ -6,6 +6,22 @@ import Sidebar from "../../../shared/Sidebar";
 import styles from './SchedulesTable.module.css'
 
 export default function SchedulesTable({ schedules, onEdit, onDelete }) {
+  const formatScheduleType = (schedule) => {
+    if (schedule.type === 'template') return 'шаблон';
+
+    const startDate = new Date(schedule.start_date);
+    const endDate = new Date(startDate);
+    endDate.setDate(startDate.getDate() + 6);
+
+    const format = (date) => date.toLocaleDateString('ru-RU', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    });
+
+    return `${format(startDate)} - ${format(endDate)}`;
+  };
+
   const redirectToLessons = (scheduleId) => {
     store.currentScheduleId = scheduleId
     redirect(`/admin/lessons/${scheduleId}`)
@@ -21,6 +37,7 @@ export default function SchedulesTable({ schedules, onEdit, onDelete }) {
             <th>Дата создания</th>
             <th>Пар в день</th>
             <th>Дни недели</th>
+            <th>Тип расписания</th>
             <th></th>
             <th></th>
           </tr>
@@ -32,6 +49,7 @@ export default function SchedulesTable({ schedules, onEdit, onDelete }) {
               <td>{new Date(schedule.created).toLocaleDateString()}</td>
               <td>{schedule.lessonsInDay}</td>
               <td>{schedule.weekdays.join(', ')}</td>
+              <td>{formatScheduleType(schedule)}</td>
               <td>
                 <button
                   class={`${pages.tableActionButton} ${pages.tableEditButton}`}
