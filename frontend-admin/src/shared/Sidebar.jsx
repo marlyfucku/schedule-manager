@@ -18,10 +18,11 @@ export default function Sidebar() {
       <SidebarCategory text="Расписания" handler={(e) => handleClick(e, "/admin/schedules")} isActive={pathname.startsWith("/admin/schedules")} />
       <SidebarCategory text="Сетка уроков" handler={(e) => handleClick(e, `/admin/lessons/${currentScheduleId}`)} isActive={pathname.startsWith("/admin/lessons")} />
       <SidebarCategory text="Звонки" handler={(e) => handleClick(e, `/admin/bells/${currentScheduleId}`)} isActive={pathname.startsWith("/admin/bells")} />
-      <SidebarCategory text="Группы" handler={(e) => handleClick(e, "/admin/groups")} isActive={pathname === "/admin/groups"} />
-      <SidebarCategory text="Предметы" handler={(e) => handleClick(e, "/admin/subjects")} isActive={pathname === "/admin/subjects"} />
-      <SidebarCategory text="Преподаватели" handler={(e) => handleClick(e, "/admin/teachers")} isActive={pathname === "/admin/teachers"} />
-      <SidebarCategory text="Аудитории" handler={(e) => handleClick(e, "/admin/classes")} isActive={pathname === "/admin/classes"} />
+      <SidebarCategory text="Группы" handler={(e) => handleClick(e, "/admin/groups")} isActive={pathname.startsWith("/admin/groups")} />
+      <SidebarCategory text="Предметы" handler={(e) => handleClick(e, "/admin/subjects")} isActive={pathname.startsWith("/admin/subjects")} />
+      <SidebarCategory text="Преподаватели" handler={(e) => handleClick(e, "/admin/teachers")} isActive={pathname.startsWith("/admin/teachers")} />
+      <SidebarCategory text="Аудитории" handler={(e) => handleClick(e, "/admin/classes")} isActive={pathname.startsWith("/admin/classes")} />
+      <SidebarCategory text="Публикация" handler={(e) => handleClick(e, "/admin/publication")} isActive={pathname.startsWith("/admin/publication")} />
     </ol>
   )
 }
