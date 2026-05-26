@@ -2,14 +2,14 @@ import PageTitle from '../../shared/PageTitle'
 import pages from '../pages.module.css'
 import styles from './PublicationPage.module.css'
 
-const publicationInfo = {
-  url: '',
-  lastPublishedAt: '-',
-}
-
-const publishedSchedules = []
-
 export default function PublicationPage() {
+  const publicationInfo = {
+    url: '',
+    lastPublishedAt: '-',
+  }
+
+  const publishedSchedules = []
+
   return (
     <div class={`content ${pages.crudPage}`}>
       <div class={pages.crudHeader}>
