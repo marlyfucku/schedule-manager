@@ -1,23 +1,13 @@
-export default function InfoSection({ workload, lesson }) {
-  if (workload) {
-    return (
-      <div>
-        <div>{workload.groupName}</div>
-        <div>{workload.subjectName}</div>
-        <div>{workload.teacherName}</div>
-      </div>
-    )
+export default function InfoSection({ scheduleItem }) {
+  if (!scheduleItem) {
+    return <div></div>
   }
 
-  if (lesson) {
-    return (
-      <div>
-        <div>{lesson.groupName}</div>
-        <div>{lesson.subjectName}</div>
-        <div>{lesson.teacherName}</div>
-      </div>
-    )
-  }
-
-  return <div></div>
+  return (
+    <div>
+      <div>{scheduleItem.groupName}</div>
+      <div>{scheduleItem.subjectName}</div>
+      <div>{scheduleItem.teacherName}</div>
+    </div>
+  )
 }

@@ -19,12 +19,12 @@ export default function TableCell({ lessons, weekday, group }) {
     refreshPage()
   }
 
-  const onMouseEnter = (lesson) => {
+  const showLessonInfo = (lesson) => {
     if (lesson.style !== 'booked') return;
-    render("#infoSection", <InfoSection lesson={lesson} />)
+    render("#infoSection", <InfoSection scheduleItem={lesson} />)
   }
 
-  const onMouseLeave = (lesson) => {
+  const clearLessonInfo = (lesson) => {
     if (lesson.style !== 'booked') return;
     render("#infoSection", <InfoSection />)
   }
@@ -33,7 +33,7 @@ export default function TableCell({ lessons, weekday, group }) {
     <td>
       <div class={styles.pairsContainer}>
         {lessons.map((lesson, index) => (
-          <div class={`${styles.pairSlot} ${lesson.style}`} onMouseEnter={() => onMouseEnter(lesson)} onMouseLeave={() => onMouseLeave(lesson)} onClick={(e) => handleClick(lesson)}>
+          <div class={`${styles.pairSlot} ${lesson.style}`} onMouseEnter={() => showLessonInfo(lesson)} onMouseLeave={() => clearLessonInfo(lesson)} onClick={(e) => handleClick(lesson)}>
             <span class={styles.pairText} title={lesson.text}>{lesson.text}</span>
           </div>
         ))}
