@@ -10,8 +10,8 @@ export default function TableCell({ lessons, weekday, group }) {
   const handleClick = async (lesson) => {
     if (!store.ui.selectedWorkload) return;
     if (store.ui.selectedGroup !== group.id) return;
-    const {lessonNumber} = lesson
-    const result = await setLesson({...store.ui.selectedWorkload, lessonNumber, scheduleId: store.currentScheduleId, weekday})
+    const { lessonNumber } = lesson
+    const result = await setLesson({ ...store.ui.selectedWorkload, lessonNumber, scheduleId: store.currentScheduleId, weekday })
     decrementWorkload(store.ui.selectedWorkload.workloadId)
     ui.showFlashMessage(result)
     refreshPage()

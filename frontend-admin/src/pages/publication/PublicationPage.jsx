@@ -10,11 +10,15 @@ export default function PublicationPage() {
 
   const publishedSchedules = []
 
+  const publishSchedules = () => {
+    // const schedules = 
+  }
+
   return (
     <div class={`content ${pages.crudPage}`}>
       <div class={pages.crudHeader}>
         <PageTitle title="Публикация расписания" />
-        <button class={pages.addButton}>ОПУБЛИКОВАТЬ</button>
+        <button class={pages.addButton} onClick={()=>{}}>ОПУБЛИКОВАТЬ</button>
       </div>
 
       <div class={styles.publicationContent}>
