@@ -22,9 +22,18 @@ export default function UpdateTeacherForm({ closeId, teacher }) {
   return (
     <form class={styles.form} onSubmit={onSubmit} id="updateTeacherForm">
       <h3>Редактировать преподавателя</h3>
-      <input type="text" name="fio" placeholder="ФИО" required value={teacher.name} />
-      <input type="text" name="abbr" placeholder="Сокращение" required value={teacher.fio} />
-      <input type="text" name="position" placeholder="Должность" value={teacher.position} />
+      <div>
+        <label htmlFor="fio">ФИО</label>
+        <input type="text" id="fio" name="fio" placeholder="ФИО" required value={teacher.name} />
+      </div>
+      <div>
+        <label htmlFor="abbr">Сокращение</label>
+        <input type="text" id="abbr" name="abbr" placeholder="Сокращение" required value={teacher.fio} />
+      </div>
+      <div>
+        <label htmlFor="position">Должность</label>
+        <input type="text" id="position" name="position" placeholder="Должность" value={teacher.position} />
+      </div>
       <button type="submit">Редактировать</button>
     </form>
   )
