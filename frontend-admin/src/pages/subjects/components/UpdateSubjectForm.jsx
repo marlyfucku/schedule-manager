@@ -22,8 +22,14 @@ export default function UpdateSubjectForm({ closeId, subject }) {
   return (
     <form class={styles.form} onSubmit={onSubmit} id="updateSubjectForm">
       <h3>Редактировать предмет</h3>
-      <input type="text" name="name" placeholder="Название предмета" required value={subject.name} />
-      <input type="text" name="abbreviation" placeholder="Сокращение" required value={subject.abbreviation || subject.abbr} />
+      <div>
+        <label htmlFor="name">Название предмета</label>
+        <input type="text" id="name" name="name" placeholder="Название предмета" required value={subject.name} />
+      </div>
+      <div>
+        <label htmlFor=""></label>
+        <input type="text" name="abbreviation" placeholder="Сокращение" required value={subject.abbreviation || subject.abbr} />
+      </div>
       <button type="submit">Редактировать</button>
     </form>
   )
