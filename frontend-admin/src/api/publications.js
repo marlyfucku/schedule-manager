@@ -1,15 +1,10 @@
 async function fetchPublications() {
-  try {
-    const response = await fetch('/apiv1/publications');
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const data = await response.json();
-    return data;
+  const response = await fetch('/apiv1/publications');
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
   }
-  catch (error) {
-    console.error('Fetch error:', error);
-  }
+
+  return response.json();
 }
 
 async function publishSchedules() {
@@ -28,4 +23,20 @@ async function publishSchedules() {
   }
 }
 
-export { fetchPublications, publishSchedules };
+async function deletePublications() {
+  try {
+    const response = await fetch('/apiv1/publications', {
+      method: 'DELETE',
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const message = await response.json();
+    return { type: 'success', ...message };
+  }
+  catch (error) {
+    return { type: 'error', message: error.message };
+  }
+}
+
+export { deletePublications, fetchPublications, publishSchedules };
