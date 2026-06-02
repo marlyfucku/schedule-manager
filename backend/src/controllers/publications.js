@@ -11,55 +11,55 @@ export const getPublications = async (fastify) => {
   }
 };
 
-export const publishSchedule = async (fastify, scheduleId) => {
+export const publishSchedules = async (fastify) => {
   const client = await fastify.pg.connect();
 
   try {
-    const { rows: [schedule] } = await client.query(`
-      SELECT id, name FROM schedules WHERE id = $1 AND type = 'period'
-    `, [scheduleId]);
+    // Находим все расписания типа 'period', которых нет в published_lessons
+    const { rows: schedules } = await client.query(`
+      SELECT id, name 
+      FROM schedules 
+      WHERE type = 'period' 
+        AND id NOT IN (SELECT DISTINCT schedule_id FROM published_lessons)
+    `);
 
-    if (!schedule) {
-      return { type: 'error', message: 'Расписание не найдено или не является периодом' };
-    }
-
-    const { rows: lessons } = await client.query(`
-      SELECT 
-        weekday, lesson_number, classroom,
-        group_id, group_name,
-        teacher_id, teacher_name,
-        subject_id, subject_name, subject_abbr
-      FROM schedule_lessons
-      WHERE schedule_id = $1
-    `, [scheduleId]);
-
-    if (lessons.length === 0) {
-      return { type: 'error', message: 'Нет уроков для публикации' };
+    if (schedules.length === 0) {
+      return { type: 'error', message: 'Нет новых расписаний для публикации' };
     }
 
     await client.query('BEGIN');
 
-    await client.query(publicationsQueries.deleteByScheduleId, [scheduleId]);
+    for (const schedule of schedules) {
+      const { rows: lessons } = await client.query(`
+        SELECT 
+          weekday, lesson_number, classroom,
+          group_id, group_name,
+          teacher_id, teacher_name,
+          subject_id, subject_name, subject_abbr
+        FROM schedule_lessons
+        WHERE schedule_id = $1
+      `, [schedule.id]);
 
-    for (const lesson of lessons) {
-      await client.query(publicationsQueries.insertPublishedLessons, [
-        schedule.id, schedule.name,
-        lesson.weekday, lesson.lesson_number, lesson.classroom,
-        lesson.group_id, lesson.group_name,
-        lesson.teacher_id, lesson.teacher_name,
-        lesson.subject_id, lesson.subject_name, lesson.subject_abbr,
-      ]);
+      if (lessons.length === 0) continue;
+
+      for (const lesson of lessons) {
+        await client.query(publicationsQueries.insertPublishedLessons, [
+          schedule.id, schedule.name,
+          lesson.weekday, lesson.lesson_number, lesson.classroom,
+          lesson.group_id, lesson.group_name,
+          lesson.teacher_id, lesson.teacher_name,
+          lesson.subject_id, lesson.subject_name, lesson.subject_abbr,
+        ]);
+      }
     }
 
     await client.query('COMMIT');
-    return { type: 'success', message: 'Расписание опубликовано!' };
-  }
-  catch (error) {
+    return { type: 'success', message: 'Новые расписания опубликованы!' };
+  } catch (error) {
     await client.query('ROLLBACK');
-    console.error('Error publishing schedule:', error);
+    console.error('Error publishing schedules:', error);
     return { type: 'error', message: error.message };
-  }
-  finally {
+  } finally {
     client.release();
   }
 };

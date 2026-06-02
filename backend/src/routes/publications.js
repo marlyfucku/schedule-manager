@@ -1,6 +1,6 @@
 import {
   getPublications,
-  publishSchedule,
+  publishSchedules,
   unpublishAll,
 } from '../controllers/publications.js';
 
@@ -11,8 +11,7 @@ export default async function publicationsRoutes(fastify) {
   });
 
   fastify.post('/publications', async (req, reply) => {
-    const { scheduleId } = req.body;
-    const result = await publishSchedule(fastify, scheduleId);
+    const result = await publishSchedules(fastify);
     reply.status(201).send(result);
   });
 

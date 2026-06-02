@@ -12,4 +12,20 @@ async function fetchPublications() {
   }
 }
 
-export { fetchPublications };
+async function publishSchedules() {
+  try {
+    const response = await fetch('/apiv1/publications', {
+      method: 'POST',
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const message = await response.json();
+    return { type: 'success', ...message };
+  }
+  catch (error) {
+    return { type: 'error', message: error.message };
+  }
+}
+
+export { fetchPublications, publishSchedules };

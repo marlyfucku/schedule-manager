@@ -1,16 +1,23 @@
 import PageTitle from '../../shared/PageTitle'
 import pages from '../pages.module.css'
 import styles from './PublicationPage.module.css'
-import { fetchPublications } from '../../api/publications.js'
+import { fetchPublications, publishSchedules } from '../../api/publications.js'
+import { refreshPage } from '../../core/router.js'
+import { ui } from '../../utils/dom.js'
 
 export default async function PublicationPage() {
   const publications = await fetchPublications()
+  const handlePublish = async () => {
+    const result = await publishSchedules()
+    ui.showFlashMessage(result)
+    refreshPage()
+  }
 
   return (
     <div class={`content ${pages.crudPage}`}>
       <div class={pages.crudHeader}>
         <PageTitle title="Публикация расписания" />
-        <button class={pages.addButton} onClick={() => { }}>ОПУБЛИКОВАТЬ</button>
+        <button class={pages.addButton} onClick={handlePublish}>ОПУБЛИКОВАТЬ</button>
       </div>
 
       <div class={styles.publicationContent}>
