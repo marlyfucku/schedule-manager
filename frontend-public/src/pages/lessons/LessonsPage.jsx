@@ -1,14 +1,15 @@
 import DayTable from './components/DayTable.jsx'
 import { addWindows, sortLessonsByDays } from '../../lib/helpers/sortHelpers.js'
-import styles from './Page.module.css'
+import styles from './LessonsPage.module.css'
 import BreadCrumbs from '../../components/BreadCrumbs.jsx'
 import { fetchLessons } from '../../lib/api.js'
 import PageNavigation from '../../components/PageNavigation.jsx'
 import { parseUrl } from '../../lib/helpers/urlHelpers.js'
 
-export default async function Page() {
+export default async function LessonsPage() {
   const { category } = parseUrl(window.location.href)
   const lessons = await fetchLessons(category)
+  console.log(lessons);
   const group = lessons[0].group_name
   const sortedLessons = sortLessonsByDays(lessons)
   const days = Object.keys(sortedLessons)

@@ -3,7 +3,7 @@ import Title from '../../components/Title.jsx'
 import { fetchGroups } from '../../lib/api.js'
 import Group from './components/Group.js'
 
-export default async function Groups() {
+export default async function GroupsPage() {
   const groups = await fetchGroups()
 
   return (

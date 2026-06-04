@@ -3,7 +3,7 @@ import Title from '../../components/Title.jsx'
 import { fetchTeachers } from '../../lib/api.js'
 import TeacherName from './components/Teacher.jsx'
 
-export default async function Teachers() {
+export default async function TeachersPage() {
   const teachers = await fetchTeachers()
 
   return (
