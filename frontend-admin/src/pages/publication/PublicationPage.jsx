@@ -1,16 +1,23 @@
 import PageTitle from '../../shared/PageTitle'
 import pages from '../pages.module.css'
 import styles from './PublicationPage.module.css'
-import { fetchPublications, publishSchedules } from '../../api/publications.js'
+import { deletePublications, fetchPublications, publishSchedules } from '../../api/publications.js'
 import { refreshPage } from '../../core/router.js'
 import { ui } from '../../utils/dom.js'
 import { getWeekRange } from '../../utils/date.js'
 
 export default async function PublicationPage() {
   const publications = await fetchPublications()
+  const hasPublications = publications.length > 0
 
   const handlePublish = async () => {
     const result = await publishSchedules()
+    ui.showFlashMessage(result)
+    refreshPage()
+  }
+
+  const handleDelete = async () => {
+    const result = await deletePublications()
     ui.showFlashMessage(result)
     refreshPage()
   }
@@ -19,7 +26,16 @@ export default async function PublicationPage() {
     <div class={`content ${pages.crudPage}`}>
       <div class={pages.crudHeader}>
         <PageTitle title="Публикация расписания" />
-        <button class={pages.addButton} onClick={handlePublish}>ОПУБЛИКОВАТЬ</button>
+        <div class={styles.actionButtons}>
+          {hasPublications ? (
+            <>
+              <button class={`${pages.addButton} ${styles.disabledButton}`} disabled>ОБНОВИТЬ ПУБЛИКАЦИЮ</button>
+              <button class={`${pages.tableActionButton} ${pages.tableDeleteButton} ${styles.deleteButton}`} onClick={handleDelete}>УДАЛИТЬ ПУБЛИКАЦИЮ</button>
+            </>
+          ) : (
+            <button class={pages.addButton} onClick={handlePublish}>ОПУБЛИКОВАТЬ</button>
+          )}
+        </div>
       </div>
 
       <div class={styles.publicationContent}>

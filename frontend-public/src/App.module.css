@@ -1,7 +1,14 @@
 .main {
-  width: 900px;
+  width: 100%;
+  max-width: 900px;
   margin: 0 auto;
   padding: 30px;
+}
+
+@media (width <= 768px) {
+  .main {
+    padding: 16px;
+  }
 }
 
 .header {
@@ -21,6 +28,13 @@
 
 .cardsContainer {
   display: flex;
+  flex-wrap: wrap;
   gap: 30px;
   justify-content: center;
+}
+
+@media (width <= 480px) {
+  .cardsContainer {
+    gap: 16px;
+  }
 }

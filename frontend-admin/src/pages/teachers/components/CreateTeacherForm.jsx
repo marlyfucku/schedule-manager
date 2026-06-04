@@ -21,9 +21,18 @@ export default function CreateTeacherForm() {
   return (
     <form class={styles.form} onSubmit={onSubmit}>
       <h3>Добавить преподавателя</h3>
-      <input type="text" name="fio" placeholder="ФИО" required />
-      <input type="text" name="abbr" placeholder="Сокращение" required />
-      <input type="text" name="position" placeholder="Должность" />
+      <div>
+        <label htmlFor="fio">ФИО</label>
+        <input type="text" id="fio" name="fio" placeholder="ФИО" required />
+      </div>
+      <div>
+        <label htmlFor="abbr">Сокращение</label>
+        <input type="text" id="abbr" name="abbr" placeholder="Сокращение" required />
+      </div>
+      <div>
+        <label htmlFor="position">Должность</label>
+        <input type="text" id="position" name="position" placeholder="Должность" />
+      </div>
       <button type="submit">Добавить</button>
     </form>
   )

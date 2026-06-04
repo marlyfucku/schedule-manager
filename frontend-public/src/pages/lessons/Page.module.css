@@ -15,6 +15,18 @@
   overflow-y: auto;
 }
 
+@media (width <= 768px) {
+  .scheduleGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (width <= 480px) {
+  .scheduleGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .scheduleHeader {
   padding: 8px 16px;
   border-bottom: 1px solid #ddd;

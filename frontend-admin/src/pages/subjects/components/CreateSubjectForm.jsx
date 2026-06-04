@@ -21,8 +21,14 @@ export default function CreateSubjectForm({ closeId }) {
   return (
     <form class={styles.form} onSubmit={onSubmit}>
       <h3>Добавить предмет</h3>
-      <input type="text" name="name" placeholder="Название предмета" required />
-      <input type="text" name="abbreviation" placeholder="Сокращение" required />
+      <div>
+        <label htmlFor="name">Название предмета</label>
+        <input type="text" id="name" name="name" placeholder="Название предмета" required />
+      </div>
+      <div>
+        <label htmlFor="abbreviation">Сокращение</label>
+        <input type="text" id="abbreviation" name="abbreviation" placeholder="Сокращение" required />
+      </div>
       <button type="submit">Добавить</button>
     </form>
   )

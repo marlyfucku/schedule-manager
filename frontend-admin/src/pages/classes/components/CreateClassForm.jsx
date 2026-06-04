@@ -23,10 +23,22 @@ export default function CreateClassForm() {
   return (
     <form class={styles.form} onSubmit={onSubmit}>
       <h3>Добавить аудиторию</h3>
-      <input type="text" name="name" placeholder="Название" required />
-      <input type="text" name="abbreviation" placeholder="Сокращение" />
-      <input type="number" name="capacity" placeholder="Количество мест" min="0" />
-      <input type="text" name="building" placeholder="Корпус" />
+      <div>
+        <label htmlFor="name">Название</label>
+        <input type="text" id="name" name="name" placeholder="Название" required />
+      </div>
+      <div>
+        <label htmlFor="abbreviation">Сокращение</label>
+        <input type="text" id="abbreviation" name="abbreviation" placeholder="Сокращение" />
+      </div>
+      <div>
+        <label htmlFor="capacity">Количество мест</label>
+        <input type="number" id="capacity" name="capacity" placeholder="Количество мест" min="0" />
+      </div>
+      <div>
+        <label htmlFor="building">Корпус</label>
+        <input type="text" id="building" name="building" placeholder="Корпус" />
+      </div>
       <button type="submit">Добавить</button>
     </form>
   )
