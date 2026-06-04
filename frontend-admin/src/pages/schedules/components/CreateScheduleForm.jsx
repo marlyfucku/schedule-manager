@@ -39,9 +39,15 @@ export default function CreateScheduleForm({ type }) {
     <form class={pages.form} onSubmit={onSubmit}>
       <h3>Добавить расписание</h3>
 
-      <input type="text" name="name" placeholder="Название расписания" required />
+      <div>
+        <label htmlFor="name">Название расписания</label>
+        <input type="text" id="name" name="name" placeholder="Название расписания" required />
+      </div>
 
-      <input type="number" name="lessonsInDay" placeholder="Количество пар в день" required min="1" max="8" />
+      <div>
+        <label htmlFor="lessonsInDay">Количество пар в день</label>
+        <input type="number" id="lessonsInDay" name="lessonsInDay" placeholder="Количество пар в день" required min="1" max="8" />
+      </div>
 
       <label htmlFor="type">Тип расписания:</label>
       <select name="type" id='type' onChange={(e) => setScheduleType(e)} required>
