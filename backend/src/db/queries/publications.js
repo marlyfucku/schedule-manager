@@ -4,14 +4,15 @@ export const publicationsQueries = {
   `,
 
   insertPublishedLessons: `
-    INSERT INTO published_lessons (
-      schedule_id, schedule_name,
-      weekday, lesson_number, classroom,
-      group_id, group_name,
-      teacher_id, teacher_name,
-      subject_id, subject_name, subject_abbr
-    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
-  `,
+  INSERT INTO published_lessons (
+    schedule_id, schedule_name,
+    weekday, lesson_number, classroom,
+    group_id, group_name,
+    teacher_id, teacher_name,
+    subject_id, subject_name, subject_abbr,
+    start_time, end_time
+  ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
+`,
 
   getPublishedSchedules: `
   SELECT DISTINCT

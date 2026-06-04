@@ -21,7 +21,9 @@ export default async function teachersRoutes(fastify) {
         pl.group_name,
         pl.teacher_name,
         pl.subject_name,
-        pl.subject_abbr
+        pl.subject_abbr,
+        pl.start_time,
+        pl.end_time
       FROM published_lessons pl
       JOIN schedules s ON pl.schedule_id = s.id
       WHERE pl.group_id = $1

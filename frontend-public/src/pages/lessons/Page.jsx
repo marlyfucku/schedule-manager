@@ -8,8 +8,8 @@ import { parseUrl } from '../../lib/helpers/urlHelpers.js'
 
 export default async function Page() {
   const { category } = parseUrl(window.location.href)
-  const data = await fetchLessons(category)
-  console.log(22, data);
+  const lessons = await fetchLessons(category)
+  const group = lessons[0].group_name
   const sortedLessons = sortLessonsByDays(lessons)
   const days = Object.keys(sortedLessons)
   const breadcrumbs = [
@@ -17,7 +17,7 @@ export default async function Page() {
       type: 'ref', href: `/public/${category}`,
       text: category === 'teachers' ? 'Преподаватели' : 'Группы',
     },
-    { text: category === 'teachers' ? lessons[0].teachers[0].fio : group.name },
+    { text: category === 'teachers' ? lessons[0].teachers[0].fio : group },
   ]
 
   return (
@@ -26,7 +26,7 @@ export default async function Page() {
       <PageNavigation />
       <div class={styles.scheduleDashboard}>
         <div class={styles.scheduleGrid}>
-          {days.map(day => <DayTable lessons={addWindows(sortedLessons[day])} startDate={startDate} />)}
+          {days.map(day => <DayTable lessons={addWindows(sortedLessons[day])} startDate={11} />)}
         </div>
       </div>
     </div>

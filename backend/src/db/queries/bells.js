@@ -11,13 +11,10 @@ export const bellsQueries = {
     WHERE schedule_id = $1
     ORDER BY lesson_number
   `,
+
   upsert: `
-    INSERT INTO bells (schedule_id, lesson_number, start_time, end_time)
-    VALUES ($1, $2, $3, $4)
-    ON CONFLICT (schedule_id, lesson_number)
-    DO UPDATE SET
-      start_time = EXCLUDED.start_time,
-      end_time = EXCLUDED.end_time
-  `,
+  INSERT INTO bells(schedule_id, lesson_number, start_time, end_time)
+  VALUES($1, $2, $3, $4)
+`,
   deleteExtra: 'DELETE FROM bells WHERE schedule_id = $1 AND lesson_number > $2',
 };

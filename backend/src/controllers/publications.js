@@ -30,6 +30,19 @@ export const publishSchedules = async (fastify) => {
     await client.query('BEGIN');
 
     for (const schedule of schedules) {
+      // Получаем расписание звонков для этого schedule
+      const { rows: bells } = await client.query(`
+        SELECT lesson_number, start_time, end_time
+        FROM bells
+        WHERE schedule_id = $1
+        ORDER BY lesson_number
+      `, [schedule.id]);
+
+      const bellsMap = new Map();
+      for (const bell of bells) {
+        bellsMap.set(bell.lesson_number, bell);
+      }
+
       const { rows: lessons } = await client.query(`
         SELECT 
           weekday, lesson_number, classroom,
@@ -43,12 +56,16 @@ export const publishSchedules = async (fastify) => {
       if (lessons.length === 0) continue;
 
       for (const lesson of lessons) {
+        const bell = bellsMap.get(lesson.lesson_number);
+
         await client.query(publicationsQueries.insertPublishedLessons, [
           schedule.id, schedule.name,
           lesson.weekday, lesson.lesson_number, lesson.classroom,
           lesson.group_id, lesson.group_name,
           lesson.teacher_id, lesson.teacher_name,
           lesson.subject_id, lesson.subject_name, lesson.subject_abbr,
+          bell ? bell.start_time : null,
+          bell ? bell.end_time : null,
         ]);
       }
     }

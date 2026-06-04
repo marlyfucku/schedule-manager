@@ -1,6 +1,6 @@
 import { calcDate } from '../../../lib/helpers/dateHelpers.js'
 import styles from './DayTable.module.css'
-import Lesson from './LessonRow.jsx'
+import Lesson from './Lesson.jsx'
 
 export default function LessonsTable({ lessons, startDate }) {
   const weekdays = {
