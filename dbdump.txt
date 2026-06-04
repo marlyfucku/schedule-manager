@@ -2,12 +2,12 @@
 -- PostgreSQL database dump
 --
 
-\restrict QvOhQBN0WRa3Q3Salg8nXaaRMDuwLZRVo6lp0osA731VVIN4XcM85ZAyngXmMnl
+\restrict u49QXGehm6Uy3DOLDcpkneheEpYC70Nf6KCnXhGwLjuTcwpj0IuovHCsMVYcCEw
 
 -- Dumped from database version 18.1
 -- Dumped by pg_dump version 18.0
 
--- Started on 2026-06-02 13:15:55 +07
+-- Started on 2026-06-04 11:04:09 +07
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -279,6 +279,7 @@ CREATE TABLE public.schedules (
     weekdays integer[] DEFAULT '{1,2,3,4,5,6,7}'::integer[],
     type character varying(20) DEFAULT 'template'::character varying NOT NULL,
     start_date date,
+    updated_at timestamp without time zone,
     CONSTRAINT schedules_type_check CHECK (((type)::text = ANY ((ARRAY['template'::character varying, 'period'::character varying])::text[])))
 );
 
@@ -513,15 +514,12 @@ ALTER TABLE ONLY public.workloads ALTER COLUMN id SET DEFAULT nextval('public.wo
 -- Data for Name: bells; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.bells (id, schedule_id, lesson_number, start_time, end_time, created_at, updated_at) VALUES (92, 32, 1, '08:30:00', '10:00:00', '2026-05-24 22:14:34.405339', '2026-05-24 22:14:34.405339');
-INSERT INTO public.bells (id, schedule_id, lesson_number, start_time, end_time, created_at, updated_at) VALUES (93, 32, 2, '10:10:00', '11:40:00', '2026-05-24 22:14:34.411818', '2026-05-24 22:14:34.411818');
-INSERT INTO public.bells (id, schedule_id, lesson_number, start_time, end_time, created_at, updated_at) VALUES (94, 32, 3, '11:50:00', '13:20:00', '2026-05-24 22:14:34.412552', '2026-05-24 22:14:34.412552');
-INSERT INTO public.bells (id, schedule_id, lesson_number, start_time, end_time, created_at, updated_at) VALUES (95, 32, 4, '13:30:00', '15:00:00', '2026-05-24 22:14:34.413175', '2026-05-24 22:14:34.413175');
-INSERT INTO public.bells (id, schedule_id, lesson_number, start_time, end_time, created_at, updated_at) VALUES (96, 32, 5, '15:10:00', '16:40:00', '2026-05-24 22:14:34.413531', '2026-05-24 22:14:34.413531');
-INSERT INTO public.bells (id, schedule_id, lesson_number, start_time, end_time, created_at, updated_at) VALUES (97, 33, 1, '08:30:00', '10:00:00', '2026-05-30 10:15:39.479404', '2026-05-30 10:15:39.479404');
-INSERT INTO public.bells (id, schedule_id, lesson_number, start_time, end_time, created_at, updated_at) VALUES (98, 33, 2, '10:10:00', '11:40:00', '2026-05-30 10:15:39.482772', '2026-05-30 10:15:39.482772');
-INSERT INTO public.bells (id, schedule_id, lesson_number, start_time, end_time, created_at, updated_at) VALUES (99, 33, 3, '11:50:00', '13:20:00', '2026-05-30 10:15:39.483506', '2026-05-30 10:15:39.483506');
-INSERT INTO public.bells (id, schedule_id, lesson_number, start_time, end_time, created_at, updated_at) VALUES (100, 33, 4, '13:30:00', '15:00:00', '2026-05-30 10:15:39.484074', '2026-05-30 10:15:39.484074');
+COPY public.bells (id, schedule_id, lesson_number, start_time, end_time, created_at, updated_at) FROM stdin;
+101	34	1	08:30:00	10:00:00	2026-06-04 10:34:35.244402	2026-06-04 10:34:35.244402
+102	34	2	10:10:00	11:40:00	2026-06-04 10:34:35.246355	2026-06-04 10:34:35.246355
+103	34	3	11:50:00	13:20:00	2026-06-04 10:34:35.246824	2026-06-04 10:34:35.246824
+104	34	4	13:30:00	15:00:00	2026-06-04 10:34:35.247172	2026-06-04 10:34:35.247172
+\.
 
 
 --
@@ -530,6 +528,8 @@ INSERT INTO public.bells (id, schedule_id, lesson_number, start_time, end_time, 
 -- Data for Name: classes; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+COPY public.classes (id, name, abbreviation, capacity, building) FROM stdin;
+\.
 
 
 --
@@ -538,9 +538,11 @@ INSERT INTO public.bells (id, schedule_id, lesson_number, start_time, end_time, 
 -- Data for Name: groups; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.groups (id, name, abbreviation, year_of_admission) VALUES (16, 'group1', 'gr1', '2022');
-INSERT INTO public.groups (id, name, abbreviation, year_of_admission) VALUES (17, 'group22', '2', '122');
-INSERT INTO public.groups (id, name, abbreviation, year_of_admission) VALUES (18, 'пипа22', 'пп22', '2022');
+COPY public.groups (id, name, abbreviation, year_of_admission) FROM stdin;
+16	group1	gr1	2022
+17	group22	2	122
+18	пипа22	пп22	2022
+\.
 
 
 --
@@ -549,16 +551,14 @@ INSERT INTO public.groups (id, name, abbreviation, year_of_admission) VALUES (18
 -- Data for Name: published_lessons; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.published_lessons (id, schedule_id, schedule_name, weekday, lesson_number, classroom, group_id, group_name, teacher_id, teacher_name, subject_id, subject_name, subject_abbr, published_at) VALUES (5, 32, '1', 1, 5, NULL, 16, 'group1', 58, 'Михалыч', 2, 'Дизайн', 'Дbp01', '2026-06-02 13:14:22.589184');
-INSERT INTO public.published_lessons (id, schedule_id, schedule_name, weekday, lesson_number, classroom, group_id, group_name, teacher_id, teacher_name, subject_id, subject_name, subject_abbr, published_at) VALUES (6, 32, '1', 2, 1, NULL, 16, 'group1', 48, 'Латников М.', 2, 'Дизайн', 'Дbp01', '2026-06-02 13:14:22.589184');
-INSERT INTO public.published_lessons (id, schedule_id, schedule_name, weekday, lesson_number, classroom, group_id, group_name, teacher_id, teacher_name, subject_id, subject_name, subject_abbr, published_at) VALUES (7, 32, '1', 2, 2, NULL, 16, 'group1', 58, 'Михалыч', 2, 'Дизайн', 'Дbp01', '2026-06-02 13:14:22.589184');
-INSERT INTO public.published_lessons (id, schedule_id, schedule_name, weekday, lesson_number, classroom, group_id, group_name, teacher_id, teacher_name, subject_id, subject_name, subject_abbr, published_at) VALUES (8, 32, '1', 2, 3, NULL, 16, 'group1', 58, 'Михалыч', 2, 'Дизайн', 'Дbp01', '2026-06-02 13:14:22.589184');
-INSERT INTO public.published_lessons (id, schedule_id, schedule_name, weekday, lesson_number, classroom, group_id, group_name, teacher_id, teacher_name, subject_id, subject_name, subject_abbr, published_at) VALUES (9, 32, '1', 2, 4, NULL, 16, 'group1', 48, 'Латников М.', 2, 'Дизайн', 'Дbp01', '2026-06-02 13:14:22.589184');
-INSERT INTO public.published_lessons (id, schedule_id, schedule_name, weekday, lesson_number, classroom, group_id, group_name, teacher_id, teacher_name, subject_id, subject_name, subject_abbr, published_at) VALUES (10, 32, '1', 2, 5, NULL, 16, 'group1', 58, 'Михалыч', 2, 'Дизайн', 'Дbp01', '2026-06-02 13:14:22.589184');
-INSERT INTO public.published_lessons (id, schedule_id, schedule_name, weekday, lesson_number, classroom, group_id, group_name, teacher_id, teacher_name, subject_id, subject_name, subject_abbr, published_at) VALUES (11, 33, '2', 1, 3, NULL, 17, 'group22', 48, 'Латников М.', 2, 'Дизайн', 'Дbp01', '2026-06-02 13:14:22.589184');
-INSERT INTO public.published_lessons (id, schedule_id, schedule_name, weekday, lesson_number, classroom, group_id, group_name, teacher_id, teacher_name, subject_id, subject_name, subject_abbr, published_at) VALUES (12, 33, '2', 1, 4, NULL, 17, 'group22', 48, 'Латников М.', 2, 'Дизайн', 'Дbp01', '2026-06-02 13:14:22.589184');
-INSERT INTO public.published_lessons (id, schedule_id, schedule_name, weekday, lesson_number, classroom, group_id, group_name, teacher_id, teacher_name, subject_id, subject_name, subject_abbr, published_at) VALUES (13, 33, '2', 2, 1, NULL, 17, 'group22', 48, 'Латников М.', 2, 'Дизайн', 'Дbp01', '2026-06-02 13:14:22.589184');
-INSERT INTO public.published_lessons (id, schedule_id, schedule_name, weekday, lesson_number, classroom, group_id, group_name, teacher_id, teacher_name, subject_id, subject_name, subject_abbr, published_at) VALUES (14, 33, '2', 2, 3, NULL, 17, 'group22', 48, 'Латников М.', 2, 'Дизайн', 'Дbp01', '2026-06-02 13:14:22.589184');
+COPY public.published_lessons (id, schedule_id, schedule_name, weekday, lesson_number, classroom, group_id, group_name, teacher_id, teacher_name, subject_id, subject_name, subject_abbr, published_at) FROM stdin;
+29	34	1	2	3	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-04 11:02:47.094019
+30	34	1	2	1	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-04 11:02:47.094019
+31	34	1	2	2	\N	18	пипа22	48	Латников М.	2	Дизайн	Дbp01	2026-06-04 11:02:47.094019
+32	34	1	2	4	\N	18	пипа22	48	Латников М.	2	Дизайн	Дbp01	2026-06-04 11:02:47.094019
+33	34	1	3	3	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-04 11:02:47.094019
+34	34	1	3	4	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-04 11:02:47.094019
+\.
 
 
 --
@@ -567,6 +567,8 @@ INSERT INTO public.published_lessons (id, schedule_id, schedule_name, weekday, l
 -- Data for Name: schedule_groups; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+COPY public.schedule_groups (schedule_id, group_id) FROM stdin;
+\.
 
 
 --
@@ -575,16 +577,14 @@ INSERT INTO public.published_lessons (id, schedule_id, schedule_name, weekday, l
 -- Data for Name: schedule_lessons; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.schedule_lessons (id, schedule_id, weekday, lesson_number, classroom, group_id, group_name, teacher_id, teacher_name, subject_id, subject_name, subject_abbr, created_at, group_abbr) VALUES (24, 32, 2, 1, NULL, 16, 'group1', 48, 'Латников М.', 2, 'Дизайн', 'Дbp01', '2026-05-26 14:22:41.730447', NULL);
-INSERT INTO public.schedule_lessons (id, schedule_id, weekday, lesson_number, classroom, group_id, group_name, teacher_id, teacher_name, subject_id, subject_name, subject_abbr, created_at, group_abbr) VALUES (25, 32, 2, 4, NULL, 16, 'group1', 48, 'Латников М.', 2, 'Дизайн', 'Дbp01', '2026-05-26 14:22:43.029598', NULL);
-INSERT INTO public.schedule_lessons (id, schedule_id, weekday, lesson_number, classroom, group_id, group_name, teacher_id, teacher_name, subject_id, subject_name, subject_abbr, created_at, group_abbr) VALUES (26, 32, 2, 5, NULL, 16, 'group1', 58, 'Михалыч', 2, 'Дизайн', 'Дbp01', '2026-05-26 14:22:51.930296', NULL);
-INSERT INTO public.schedule_lessons (id, schedule_id, weekday, lesson_number, classroom, group_id, group_name, teacher_id, teacher_name, subject_id, subject_name, subject_abbr, created_at, group_abbr) VALUES (27, 32, 2, 3, NULL, 16, 'group1', 58, 'Михалыч', 2, 'Дизайн', 'Дbp01', '2026-05-26 14:22:52.498593', NULL);
-INSERT INTO public.schedule_lessons (id, schedule_id, weekday, lesson_number, classroom, group_id, group_name, teacher_id, teacher_name, subject_id, subject_name, subject_abbr, created_at, group_abbr) VALUES (28, 32, 2, 2, NULL, 16, 'group1', 58, 'Михалыч', 2, 'Дизайн', 'Дbp01', '2026-05-26 14:22:53.162286', NULL);
-INSERT INTO public.schedule_lessons (id, schedule_id, weekday, lesson_number, classroom, group_id, group_name, teacher_id, teacher_name, subject_id, subject_name, subject_abbr, created_at, group_abbr) VALUES (29, 32, 1, 5, NULL, 16, 'group1', 58, 'Михалыч', 2, 'Дизайн', 'Дbp01', '2026-05-26 14:22:53.979694', NULL);
-INSERT INTO public.schedule_lessons (id, schedule_id, weekday, lesson_number, classroom, group_id, group_name, teacher_id, teacher_name, subject_id, subject_name, subject_abbr, created_at, group_abbr) VALUES (32, 33, 2, 3, NULL, 17, 'group22', 48, 'Латников М.', 2, 'Дизайн', 'Дbp01', '2026-05-30 10:15:48.243728', NULL);
-INSERT INTO public.schedule_lessons (id, schedule_id, weekday, lesson_number, classroom, group_id, group_name, teacher_id, teacher_name, subject_id, subject_name, subject_abbr, created_at, group_abbr) VALUES (33, 33, 2, 1, NULL, 17, 'group22', 48, 'Латников М.', 2, 'Дизайн', 'Дbp01', '2026-05-30 10:15:48.874496', NULL);
-INSERT INTO public.schedule_lessons (id, schedule_id, weekday, lesson_number, classroom, group_id, group_name, teacher_id, teacher_name, subject_id, subject_name, subject_abbr, created_at, group_abbr) VALUES (34, 33, 1, 4, NULL, 17, 'group22', 48, 'Латников М.', 2, 'Дизайн', 'Дbp01', '2026-05-30 10:15:49.475291', NULL);
-INSERT INTO public.schedule_lessons (id, schedule_id, weekday, lesson_number, classroom, group_id, group_name, teacher_id, teacher_name, subject_id, subject_name, subject_abbr, created_at, group_abbr) VALUES (35, 33, 1, 3, NULL, 17, 'group22', 48, 'Латников М.', 2, 'Дизайн', 'Дbp01', '2026-05-30 10:15:49.975389', NULL);
+COPY public.schedule_lessons (id, schedule_id, weekday, lesson_number, classroom, group_id, group_name, teacher_id, teacher_name, subject_id, subject_name, subject_abbr, created_at, group_abbr) FROM stdin;
+40	34	2	3	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-04 10:34:42.052651	\N
+41	34	2	1	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-04 10:34:43.015184	\N
+42	34	2	2	\N	18	пипа22	48	Латников М.	2	Дизайн	Дbp01	2026-06-04 10:34:50.231945	\N
+43	34	2	4	\N	18	пипа22	48	Латников М.	2	Дизайн	Дbp01	2026-06-04 10:34:50.96487	\N
+44	34	3	3	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-04 10:55:00.762189	\N
+45	34	3	4	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-04 10:55:01.411047	\N
+\.
 
 
 --
@@ -593,8 +593,9 @@ INSERT INTO public.schedule_lessons (id, schedule_id, weekday, lesson_number, cl
 -- Data for Name: schedules; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.schedules (id, name, created, lessons_in_day, weekdays, type, start_date) VALUES (32, '1', '2026-05-24 22:14:34.3818', 5, '{1,2,3,4,5}', 'period', '2026-05-25');
-INSERT INTO public.schedules (id, name, created, lessons_in_day, weekdays, type, start_date) VALUES (33, '2', '2026-05-30 10:15:39.452637', 4, '{1,2,3,4,5}', 'period', '2026-06-01');
+COPY public.schedules (id, name, created, lessons_in_day, weekdays, type, start_date, updated_at) FROM stdin;
+34	1	2026-06-04 10:34:35.225967	4	{1,2,3,4,5}	period	2026-06-15	2026-06-04 10:55:01.411747
+\.
 
 
 --
@@ -603,8 +604,10 @@ INSERT INTO public.schedules (id, name, created, lessons_in_day, weekdays, type,
 -- Data for Name: subjects; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.subjects (id, name, abbreviation) VALUES (3, 'Программирование', 'прог01');
-INSERT INTO public.subjects (id, name, abbreviation) VALUES (2, 'Дизайн', 'Дbp01');
+COPY public.subjects (id, name, abbreviation) FROM stdin;
+3	Программирование	прог01
+2	Дизайн	Дbp01
+\.
 
 
 --
@@ -613,10 +616,12 @@ INSERT INTO public.subjects (id, name, abbreviation) VALUES (2, 'Дизайн', 
 -- Data for Name: teachers; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.teachers (id, name, fio, "position", color) VALUES (43, 'Луговой Филипп', 'Луговой Ф.', 'Преподаватель!!!', NULL);
-INSERT INTO public.teachers (id, name, fio, "position", color) VALUES (48, 'Максим Латников', 'Латников М.', 'dd', NULL);
-INSERT INTO public.teachers (id, name, fio, "position", color) VALUES (58, 'Михаил Михалыч', 'Михалыч', 'Водитель', NULL);
-INSERT INTO public.teachers (id, name, fio, "position", color) VALUES (60, 'Пушкин Александр', 'Пушкин А.С.', 'Поэтика', NULL);
+COPY public.teachers (id, name, fio, "position", color) FROM stdin;
+43	Луговой Филипп	Луговой Ф.	Преподаватель!!!	\N
+48	Максим Латников	Латников М.	dd	\N
+58	Михаил Михалыч	Михалыч	Водитель	\N
+60	Пушкин Александр	Пушкин А.С.	Поэтика	\N
+\.
 
 
 --
@@ -625,6 +630,8 @@ INSERT INTO public.teachers (id, name, fio, "position", color) VALUES (60, 'Пу
 -- Data for Name: workloads; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+COPY public.workloads (id, schedule_id, group_id, teacher_id, subject_id, lessons_per_week, created_at, updated_at) FROM stdin;
+\.
 
 
 --
@@ -633,7 +640,7 @@ INSERT INTO public.teachers (id, name, fio, "position", color) VALUES (60, 'Пу
 -- Name: bells_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.bells_id_seq', 100, true);
+SELECT pg_catalog.setval('public.bells_id_seq', 104, true);
 
 
 --
@@ -660,7 +667,7 @@ SELECT pg_catalog.setval('public.groups_id_seq', 18, true);
 -- Name: published_lessons_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.published_lessons_id_seq', 14, true);
+SELECT pg_catalog.setval('public.published_lessons_id_seq', 34, true);
 
 
 --
@@ -669,7 +676,7 @@ SELECT pg_catalog.setval('public.published_lessons_id_seq', 14, true);
 -- Name: schedule_lessons_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.schedule_lessons_id_seq', 35, true);
+SELECT pg_catalog.setval('public.schedule_lessons_id_seq', 45, true);
 
 
 --
@@ -678,7 +685,7 @@ SELECT pg_catalog.setval('public.schedule_lessons_id_seq', 35, true);
 -- Name: schedules_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.schedules_id_seq', 33, true);
+SELECT pg_catalog.setval('public.schedules_id_seq', 34, true);
 
 
 --
@@ -705,7 +712,7 @@ SELECT pg_catalog.setval('public.teachers_id_seq', 60, true);
 -- Name: workloads_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.workloads_id_seq', 16, true);
+SELECT pg_catalog.setval('public.workloads_id_seq', 21, true);
 
 
 --
@@ -971,11 +978,11 @@ ALTER TABLE ONLY public.workloads
     ADD CONSTRAINT workloads_teacher_id_fkey FOREIGN KEY (teacher_id) REFERENCES public.teachers(id) ON DELETE CASCADE;
 
 
--- Completed on 2026-06-02 13:15:55 +07
+-- Completed on 2026-06-04 11:04:09 +07
 
 --
 -- PostgreSQL database dump complete
 --
 
-\unrestrict QvOhQBN0WRa3Q3Salg8nXaaRMDuwLZRVo6lp0osA731VVIN4XcM85ZAyngXmMnl
+\unrestrict u49QXGehm6Uy3DOLDcpkneheEpYC70Nf6KCnXhGwLjuTcwpj0IuovHCsMVYcCEw
 

@@ -107,6 +107,12 @@ export const setLesson = async (fastify, data) => {
       workload.subject_abbr,
     ]);
 
+    // Обновляем updated_at у расписания
+    await client.query(
+      'UPDATE schedules SET updated_at = CURRENT_TIMESTAMP WHERE id = $1',
+      [data.scheduleId]
+    );
+
     return {
       type: 'success',
       message: 'Урок добавлен!',

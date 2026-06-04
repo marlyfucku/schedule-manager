@@ -11,3 +11,9 @@ export const getWeekRange = (startDate) => {
 
   return `${format(start)} - ${format(end)}`;
 };
+
+export const isPublicationsFresh = (publications, schedules) => publications
+  .find(({ schedule_id, published_at }) => {
+    const schedule = schedules.find(({ id }) => id === schedule_id);
+    return new Date(published_at) < new Date(schedule.updated_at);
+  });

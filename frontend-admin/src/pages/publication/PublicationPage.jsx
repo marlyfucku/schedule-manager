@@ -4,19 +4,20 @@ import styles from './PublicationPage.module.css'
 import { deletePublications, fetchPublications, publishSchedules } from '../../api/publications.js'
 import { refreshPage } from '../../core/router.js'
 import { ui } from '../../utils/dom.js'
-import { getWeekRange } from '../../utils/date.js'
+import { getWeekRange, isPublicationsFresh } from '../../utils/date.js'
+import { fetchSchedules } from '../../api/schedules.js'
 
 export default async function PublicationPage() {
   const publications = await fetchPublications()
-  const hasPublications = publications.length > 0
+  const schedules = await fetchSchedules()
 
-  const handlePublish = async () => {
+  const publishPeriodSchedules = async () => {
     const result = await publishSchedules()
     ui.showFlashMessage(result)
     refreshPage()
   }
 
-  const handleDelete = async () => {
+  const removePeriodSchedules = async () => {
     const result = await deletePublications()
     ui.showFlashMessage(result)
     refreshPage()
@@ -27,13 +28,18 @@ export default async function PublicationPage() {
       <div class={pages.crudHeader}>
         <PageTitle title="Публикация расписания" />
         <div class={styles.actionButtons}>
-          {hasPublications ? (
+          {publications.length > 0 ? (
             <>
-              <button class={`${pages.addButton} ${styles.disabledButton}`} disabled>ОБНОВИТЬ ПУБЛИКАЦИЮ</button>
-              <button class={`${pages.tableActionButton} ${pages.tableDeleteButton} ${styles.deleteButton}`} onClick={handleDelete}>УДАЛИТЬ ПУБЛИКАЦИЮ</button>
+              <button
+                class={`${pages.addButton} ${!isPublicationsFresh(publications, schedules) ? styles.disabledButton : ''}`}
+                disabled={!isPublicationsFresh(publications, schedules)}
+              >
+                ОБНОВИТЬ ПУБЛИКАЦИЮ
+              </button>
+              <button class={`${pages.tableActionButton} ${pages.tableDeleteButton} ${styles.deleteButton}`} onClick={removePeriodSchedules}>УДАЛИТЬ ПУБЛИКАЦИЮ</button>
             </>
           ) : (
-            <button class={pages.addButton} onClick={handlePublish}>ОПУБЛИКОВАТЬ</button>
+            <button class={pages.addButton} onClick={publishPeriodSchedules}>ОПУБЛИКОВАТЬ</button>
           )}
         </div>
       </div>
