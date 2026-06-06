@@ -8,8 +8,8 @@ import { parseUrl } from '../../lib/helpers/urlHelpers.js'
 
 export default async function GroupsLessons() {
   const { category } = parseUrl(window.location.href)
-  const lessons = await fetchLessons(category)
-  const { group_name, start_date } = lessons[0]
+  const { lessons, group, date }  = await fetchLessons(category)
+  console.log(lessons, group, date);
   const sortedLessons = sortLessonsByDays(lessons)
   const days = Object.keys(sortedLessons)
   const breadcrumbs = [
@@ -17,16 +17,16 @@ export default async function GroupsLessons() {
       type: 'ref', href: `/public/groups`,
       text: 'Группы',
     },
-    { text: group_name },
+    { text: group.name },
   ]
 
   return (
     <div>
       <BreadCrumbs crumbs={breadcrumbs} />
-      <PageNavigation startDate={start_date}/>
+      <PageNavigation date={date} category={'groups'} id={group.id}/>
       <div class={styles.scheduleDashboard}>
         <div class={styles.scheduleGrid}>
-          {days.map(day => <DayTable lessons={addWindows(sortedLessons[day])} startDate={start_date} />)}
+          {days.map(day => <DayTable lessons={addWindows(sortedLessons[day])} startDate={date} />)}
         </div>
       </div>
     </div>

@@ -12,7 +12,6 @@ export default function LessonsTable({ lessons, startDate }) {
     6: 'Суббота',
     7: 'Воскресенье',
   }
-  console.log(1, lessons);
   const weekdayIndex = lessons[0].weekday
 
   return (

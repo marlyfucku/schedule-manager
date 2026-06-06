@@ -1,7 +1,6 @@
 import styles from './Lesson.module.css'
 
 export default function Lesson(lesson) {
-  console.log(111, lesson);
   if (lesson.type === 'window') {
     return (
       <tr>

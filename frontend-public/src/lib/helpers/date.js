@@ -1,15 +1,24 @@
-export function getMondayDate(offset = 0) {
-  const today = new Date();
-  const day = today.getDay();
-  const diff = day === 0 ? 6 : day - 1;
+export function getMondayDate(dateStr, offset = 0) {
+  // Если дата не передана, используем сегодняшнюю
+  let currentDate;
+  if (dateStr) {
+    const [year, month, day] = dateStr.split('-').map(Number);
+    currentDate = new Date(year, month - 1, day);
+  } else {
+    currentDate = new Date();
+  }
 
-  today.setDate(today.getDate() - diff + (offset * 7));
+  const dayOfWeek = currentDate.getDay();
+  const diffToMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
 
-  const year = today.getFullYear();
-  const month = String(today.getMonth() + 1).padStart(2, '0');
-  const dayOfMonth = String(today.getDate()).padStart(2, '0');
+  const monday = new Date(currentDate);
+  monday.setDate(currentDate.getDate() - diffToMonday + (offset * 7));
 
-  return `${year}-${month}-${dayOfMonth}`;
+  const year = monday.getFullYear();
+  const month = String(monday.getMonth() + 1).padStart(2, '0');
+  const day = String(monday.getDate()).padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
 }
 
 export const getWeekRange = (date) => {

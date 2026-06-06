@@ -31,14 +31,14 @@ export async function fetchGroups() {
 
 export async function fetchLessons(category) {
   const { id } = parseUrl(window.location.href);
-  const date = getMondayDate();
+  const date = new URL(window.location.href).searchParams.get('date') || getMondayDate();
   try {
     const response = await fetch(`/apiv1/${category}/lessons?id=${id}&date=${date}`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
-    return data;
+    return { date, ...data };
   }
   catch (error) {
     console.error('Fetch error:', error);

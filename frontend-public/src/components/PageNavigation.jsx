@@ -1,13 +1,23 @@
-import { getWeekRange } from '../lib/helpers/date'
+import { redirect } from '../core/router'
+import { getMondayDate, getWeekRange } from '../lib/helpers/date'
 import styles from './PageNavigation.module.css'
 
-export default function PageNavigation({ startDate }) {
-  const weekRange = getWeekRange(startDate)
+export default function PageNavigation({ category, date, id }) {
+  const weekRange = getWeekRange(date)
+  const goToPrevWeek = () => {
+    const newWeek = getMondayDate(date, -1)
+    redirect(`/public/${category}/${id}/lessons?date=${newWeek}`)
+  }
+  const goToNextWeek = () => {
+    const newWeek = getMondayDate(date, 1)
+    redirect(`/public/${category}/${id}/lessons?date=${newWeek}`)
+  }
+
   return (
     <div class={styles.navigation}>
-      <a class={styles.button}>Предыдущая неделя</a>
+      <btn class={styles.button} onClick={goToPrevWeek}>Предыдущая неделя</btn>
       <div class={styles.date}>{weekRange}</div>
-      <a class={styles.button}>Следующая неделя</a>
+      <btn class={styles.button} onClick={goToNextWeek}>Следующая неделя</btn>
     </div>
   )
 }
