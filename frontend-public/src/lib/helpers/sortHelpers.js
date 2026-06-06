@@ -1,4 +1,4 @@
-import { calcWindow } from './dateHelpers';
+import { calcWindow } from './date';
 
 export const addWindows = (dayLessons) => {
   const result = [];

@@ -11,6 +11,34 @@ export const getPublications = async (fastify) => {
   }
 };
 
+export const getPublishedLessonsByGroup = async (fastify, groupId, date) => {
+  const client = await fastify.pg.connect();
+  try {
+    const { rows: lessons } = await client.query(`
+      SELECT 
+        pl.weekday,
+        pl.lesson_number,
+        pl.classroom,
+        pl.group_id,
+        pl.group_name,
+        pl.teacher_name,
+        pl.subject_name,
+        pl.subject_abbr,
+        pl.start_time,
+        pl.end_time,
+        s.start_date
+      FROM published_lessons pl
+      JOIN schedules s ON pl.schedule_id = s.id
+      WHERE pl.group_id = $1
+        AND s.start_date <= $2::date
+      ORDER BY pl.weekday, pl.lesson_number
+    `, [groupId, date]);
+    return lessons;
+  } finally {
+    client.release();
+  }
+};
+
 export const publishSchedules = async (fastify) => {
   const client = await fastify.pg.connect();
 

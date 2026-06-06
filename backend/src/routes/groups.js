@@ -1,45 +1,17 @@
 import { createGroup, deleteGroup, getGroups, updateGroup } from '../controllers/groups.js';
+import { getPublishedLessonsByGroup } from '../controllers/publications.js';
 
 export default async function teachersRoutes(fastify) {
-  // admin
   fastify.get('/groups', async (req, reply) => {
     const groups = await getGroups(fastify);
     reply.send(groups);
   });
 
+  // public
   fastify.get('/groups/lessons', async (req, reply) => {
     const { id, date } = req.query;
-
-    const client = await fastify.pg.connect();
-    try {
-      const { rows: lessons } = await client.query(`
-      SELECT 
-        pl.weekday,
-        pl.lesson_number,
-        pl.classroom,
-        pl.group_id,
-        pl.group_name,
-        pl.teacher_name,
-        pl.subject_name,
-        pl.subject_abbr,
-        pl.start_time,
-        pl.end_time
-      FROM published_lessons pl
-      JOIN schedules s ON pl.schedule_id = s.id
-      WHERE pl.group_id = $1
-        AND s.start_date <= $2::date
-      ORDER BY pl.weekday, pl.lesson_number
-    `, [id, date]);
-
-      reply.send(lessons);
-    }
-    catch (error) {
-      console.error('Error fetching lessons:', error);
-      reply.status(500).send({ error: error.message });
-    }
-    finally {
-      client.release();
-    }
+    const lessons = await getPublishedLessonsByGroup(fastify, id, date);
+    reply.send(lessons);
   });
 
   fastify.post('/groups', async (req, reply) => {

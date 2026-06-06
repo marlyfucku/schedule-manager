@@ -1,4 +1,4 @@
-import { getMondayDate } from './helpers/dateHelpers';
+import { getMondayDate } from './helpers/date';
 import { parseUrl } from './helpers/urlHelpers';
 
 export async function fetchTeachers() {

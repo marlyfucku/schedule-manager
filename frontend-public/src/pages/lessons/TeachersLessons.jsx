@@ -6,7 +6,7 @@ import { fetchLessons } from '../../lib/api.js'
 import PageNavigation from '../../components/PageNavigation.jsx'
 import { parseUrl } from '../../lib/helpers/urlHelpers.js'
 
-export default async function LessonsPage() {
+export default async function TeachersLessons() {
   const { category } = parseUrl(window.location.href)
   const lessons = await fetchLessons(category)
   console.log(lessons);

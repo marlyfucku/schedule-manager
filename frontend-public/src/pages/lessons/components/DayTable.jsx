@@ -1,4 +1,4 @@
-import { calcDate } from '../../../lib/helpers/dateHelpers.js'
+import { calcDate } from '../../../lib/helpers/date.js'
 import styles from './DayTable.module.css'
 import Lesson from './Lesson.jsx'
 
@@ -12,7 +12,7 @@ export default function LessonsTable({ lessons, startDate }) {
     6: 'Суббота',
     7: 'Воскресенье',
   }
-
+  console.log(1, lessons);
   const weekdayIndex = lessons[0].weekday
 
   return (
