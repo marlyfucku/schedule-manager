@@ -34,7 +34,8 @@ export const getPublishedLessonsByGroup = async (fastify, groupId, date) => {
       ORDER BY pl.weekday, pl.lesson_number
     `, [groupId, date]);
     return lessons;
-  } finally {
+  }
+  finally {
     client.release();
   }
 };

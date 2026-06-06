@@ -23,10 +23,10 @@ export const getWeekRange = (date) => {
   const sunday = new Date(monday);
   sunday.setDate(monday.getDate() + 6);
 
-  const format = (d) => d.toLocaleDateString('ru-RU', {
+  const format = d => d.toLocaleDateString('ru-RU', {
     day: '2-digit',
     month: '2-digit',
-    year: 'numeric'
+    year: 'numeric',
   });
 
   return `${format(monday)} - ${format(sunday)}`;
