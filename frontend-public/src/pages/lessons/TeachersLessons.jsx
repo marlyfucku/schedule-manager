@@ -8,26 +8,24 @@ import { parseUrl } from '../../lib/helpers/urlHelpers.js'
 
 export default async function TeachersLessons() {
   const { category } = parseUrl(window.location.href)
-  const lessons = await fetchLessons(category)
-  console.log(lessons);
-  const group = lessons[0].group_name
+  const { lessons, teacher, date } = await fetchLessons(category)
   const sortedLessons = sortLessonsByDays(lessons)
   const days = Object.keys(sortedLessons)
   const breadcrumbs = [
     {
-      type: 'ref', href: `/public/${category}`,
-      text: category === 'teachers' ? 'Преподаватели' : 'Группы',
+      type: 'ref', href: '/public/teachers',
+      text: 'Преподаватели',
     },
-    { text: category === 'teachers' ? lessons[0].teachers[0].fio : group },
+    { text: teacher.name },
   ]
 
   return (
     <div>
       <BreadCrumbs crumbs={breadcrumbs} />
-      <PageNavigation />
+      <PageNavigation date={date} category={'teachers'} id={teacher.id}/>
       <div class={styles.scheduleDashboard}>
         <div class={styles.scheduleGrid}>
-          {days.map(day => <DayTable lessons={addWindows(sortedLessons[day])} startDate={11} />)}
+          {days.map(day => <DayTable lessons={addWindows(sortedLessons[day])} startDate={date} />)}
         </div>
       </div>
     </div>

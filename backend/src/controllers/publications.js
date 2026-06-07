@@ -27,7 +27,7 @@ export const getPublishedLessonsByGroup = async (fastify, groupId, date) => {
 
     // Получаем уроки за конкретную неделю
     const { rows: lessons } = await client.query(`
-      SELECT 
+      SELECT
         pl.weekday,
         pl.lesson_number,
         pl.classroom,
@@ -48,7 +48,7 @@ export const getPublishedLessonsByGroup = async (fastify, groupId, date) => {
 
     return {
       group: groupData[0],
-      lessons: lessons
+      lessons: lessons,
     };
   }
   finally {
@@ -56,6 +56,50 @@ export const getPublishedLessonsByGroup = async (fastify, groupId, date) => {
   }
 };
 
+export const getPublishedLessonsByTeacher = async (fastify, teacherId, date) => {
+  const client = await fastify.pg.connect();
+  try {
+    // Получаем данные преподавателя
+    const { rows: teacherData } = await client.query(`
+      SELECT id, name, fio, position
+      FROM teachers
+      WHERE id = $1
+    `, [teacherId]);
+
+    if (teacherData.length === 0) {
+      return { teacher: null, lessons: [] };
+    }
+
+    // Получаем уроки за конкретную неделю
+    const { rows: lessons } = await client.query(`
+      SELECT
+        pl.weekday,
+        pl.lesson_number,
+        pl.classroom,
+        pl.group_id,
+        pl.group_name,
+        pl.teacher_name,
+        pl.subject_name,
+        pl.subject_abbr,
+        pl.start_time,
+        pl.end_time,
+        s.start_date
+      FROM published_lessons pl
+      JOIN schedules s ON pl.schedule_id = s.id
+      WHERE pl.teacher_id = $1
+        AND s.start_date = $2::date
+      ORDER BY pl.weekday, pl.lesson_number, pl.group_name
+    `, [teacherId, date]);
+
+    return {
+      teacher: teacherData[0],
+      lessons: lessons,
+    };
+  }
+  finally {
+    client.release();
+  }
+};
 export const publishSchedules = async (fastify) => {
   const client = await fastify.pg.connect();
 
