@@ -4,7 +4,8 @@ export function getMondayDate(dateStr, offset = 0) {
   if (dateStr) {
     const [year, month, day] = dateStr.split('-').map(Number);
     currentDate = new Date(year, month - 1, day);
-  } else {
+  }
+  else {
     currentDate = new Date();
   }
 

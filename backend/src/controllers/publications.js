@@ -48,7 +48,7 @@ export const getPublishedLessonsByGroup = async (fastify, groupId, date) => {
 
     return {
       group: groupData[0],
-      lessons: lessons
+      lessons: lessons,
     };
   }
   finally {
