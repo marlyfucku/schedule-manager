@@ -2,12 +2,12 @@
 -- PostgreSQL database dump
 --
 
-\restrict qF9Cohh4OwFFe8Gink3nsMTDdUBjRerv8jkXUdsFgEAVDMdg9r9oqmJkO2IbtBD
+\restrict BhePU85sqVxzv7sOZVm2TWoBzU9PVvbUZ4EnMgDsgXARlcLKOgOT4OIqa83bxaX
 
 -- Dumped from database version 18.1
 -- Dumped by pg_dump version 18.0
 
--- Started on 2026-06-08 21:16:39 +07
+-- Started on 2026-06-08 21:42:51 +07
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -540,6 +540,16 @@ COPY public.bells (id, schedule_id, lesson_number, start_time, end_time, created
 4	40	2	10:10	11:40	2026-06-06 16:05:32.988846	2026-06-06 16:05:32.988846
 5	40	3	11:50	13:20	2026-06-06 16:05:32.989363	2026-06-06 16:05:32.989363
 6	40	4	13:30	15:00	2026-06-06 16:05:32.989722	2026-06-06 16:05:32.989722
+7	41	1	08:30	10:00	2026-06-08 21:31:43.925787	2026-06-08 21:31:43.925787
+8	41	2	10:10	11:40	2026-06-08 21:31:43.92726	2026-06-08 21:31:43.92726
+9	41	3	11:50	13:20	2026-06-08 21:31:43.927778	2026-06-08 21:31:43.927778
+10	41	4	13:30	15:00	2026-06-08 21:31:43.928294	2026-06-08 21:31:43.928294
+11	42	1	08:30	10:00	2026-06-08 21:37:44.607	2026-06-08 21:37:44.607
+12	42	2	10:10	11:40	2026-06-08 21:37:44.608662	2026-06-08 21:37:44.608662
+13	42	3	11:50	13:20	2026-06-08 21:37:44.609113	2026-06-08 21:37:44.609113
+14	42	4	13:30	15:00	2026-06-08 21:37:44.609498	2026-06-08 21:37:44.609498
+15	42	5	15:10	16:40	2026-06-08 21:37:44.609916	2026-06-08 21:37:44.609916
+16	42	6	16:50	18:20	2026-06-08 21:37:44.610295	2026-06-08 21:37:44.610295
 \.
 
 
@@ -573,18 +583,35 @@ COPY public.groups (id, name, abbreviation, year_of_admission) FROM stdin;
 --
 
 COPY public.published_lessons (id, schedule_id, schedule_name, weekday, lesson_number, classroom, group_id, group_name, teacher_id, teacher_name, subject_id, subject_name, subject_abbr, published_at, start_time, end_time) FROM stdin;
-70	40	2	1	1	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 18:26:21.808543	08:30	10:00
-71	40	2	2	1	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 18:26:21.808543	08:30	10:00
-72	40	2	3	1	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 18:26:21.808543	08:30	10:00
-73	40	2	4	2	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 18:26:21.808543	10:10	11:40
-74	40	2	5	2	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 18:26:21.808543	10:10	11:40
-75	40	2	5	1	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 18:26:21.808543	08:30	10:00
-76	39	1	1	1	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 18:26:21.808543	08:30	10:00
-77	39	1	2	2	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 18:26:21.808543	10:10	11:40
-78	39	1	2	1	\N	18	пипа22	48	Латников М.	3	Программирование	прог01	2026-06-08 18:26:21.808543	08:30	10:00
-79	39	1	1	2	\N	18	пипа22	48	Латников М.	3	Программирование	прог01	2026-06-08 18:26:21.808543	10:10	11:40
-80	39	1	3	2	\N	18	пипа22	48	Латников М.	3	Программирование	прог01	2026-06-08 18:26:21.808543	10:10	11:40
-81	39	1	5	1	\N	18	пипа22	48	Латников М.	3	Программирование	прог01	2026-06-08 18:26:21.808543	08:30	10:00
+132	39	1	1	1	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 21:41:41.353653	08:30	10:00
+133	39	1	2	2	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 21:41:41.353653	10:10	11:40
+134	39	1	2	1	\N	18	пипа22	48	Латников М.	3	Программирование	прог01	2026-06-08 21:41:41.353653	08:30	10:00
+135	39	1	1	2	\N	18	пипа22	48	Латников М.	3	Программирование	прог01	2026-06-08 21:41:41.353653	10:10	11:40
+136	39	1	3	2	\N	18	пипа22	48	Латников М.	3	Программирование	прог01	2026-06-08 21:41:41.353653	10:10	11:40
+137	39	1	5	1	\N	18	пипа22	48	Латников М.	3	Программирование	прог01	2026-06-08 21:41:41.353653	08:30	10:00
+138	39	1	2	1	\N	16	group1	43	Луговой Ф.	2	Дизайн	Дbp01	2026-06-08 21:41:41.353653	08:30	10:00
+139	39	1	1	2	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 21:41:41.353653	10:10	11:40
+140	39	1	3	1	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 21:41:41.353653	08:30	10:00
+141	39	1	3	2	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 21:41:41.353653	10:10	11:40
+142	42	4	1	1	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 21:41:41.353653	08:30	10:00
+143	42	4	1	2	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 21:41:41.353653	10:10	11:40
+144	42	4	2	2	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 21:41:41.353653	10:10	11:40
+145	42	4	3	1	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 21:41:41.353653	08:30	10:00
+146	42	4	5	2	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 21:41:41.353653	10:10	11:40
+147	42	4	1	1	\N	17	group22	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 21:41:41.353653	08:30	10:00
+148	42	4	1	2	\N	17	group22	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 21:41:41.353653	10:10	11:40
+149	42	4	2	2	\N	17	group22	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 21:41:41.353653	10:10	11:40
+150	42	4	3	1	\N	17	group22	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 21:41:41.353653	08:30	10:00
+151	42	4	1	3	\N	16	group1	43	Луговой Ф.	2	Дизайн	Дbp01	2026-06-08 21:41:41.353653	11:50	13:20
+152	42	4	2	5	\N	16	group1	43	Луговой Ф.	2	Дизайн	Дbp01	2026-06-08 21:41:41.353653	15:10	16:40
+153	42	4	3	2	\N	16	group1	43	Луговой Ф.	2	Дизайн	Дbp01	2026-06-08 21:41:41.353653	10:10	11:40
+154	42	4	5	3	\N	16	group1	43	Луговой Ф.	2	Дизайн	Дbp01	2026-06-08 21:41:41.353653	11:50	13:20
+155	40	2	1	1	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 21:41:41.353653	08:30	10:00
+156	40	2	2	1	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 21:41:41.353653	08:30	10:00
+157	40	2	3	1	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 21:41:41.353653	08:30	10:00
+158	40	2	4	2	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 21:41:41.353653	10:10	11:40
+159	40	2	5	2	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 21:41:41.353653	10:10	11:40
+160	40	2	5	1	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 21:41:41.353653	08:30	10:00
 \.
 
 
@@ -618,6 +645,22 @@ COPY public.schedule_lessons (id, schedule_id, weekday, lesson_number, classroom
 70	39	3	2	\N	18	пипа22	48	Латников М.	3	Программирование	прог01	2026-06-08 18:26:11.78897	\N
 71	39	5	1	\N	18	пипа22	48	Латников М.	3	Программирование	прог01	2026-06-08 18:26:12.808359	\N
 73	39	2	1	\N	16	group1	43	Луговой Ф.	2	Дизайн	Дbp01	2026-06-08 21:15:30.68266	\N
+74	39	1	2	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 21:19:06.194276	\N
+75	39	3	1	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 21:21:47.697018	\N
+76	39	3	2	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 21:21:48.614452	\N
+77	42	1	1	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 21:38:00.971955	\N
+78	42	1	2	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 21:38:01.837428	\N
+79	42	2	2	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 21:38:02.754263	\N
+80	42	3	1	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 21:38:05.421121	\N
+81	42	5	2	\N	16	group1	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 21:38:06.18732	\N
+82	42	1	1	\N	17	group22	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 21:38:18.40565	\N
+83	42	1	2	\N	17	group22	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 21:38:20.354075	\N
+84	42	2	2	\N	17	group22	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 21:38:21.521136	\N
+85	42	3	1	\N	17	group22	48	Латников М.	2	Дизайн	Дbp01	2026-06-08 21:38:23.62236	\N
+86	42	1	3	\N	16	group1	43	Луговой Ф.	2	Дизайн	Дbp01	2026-06-08 21:38:38.271307	\N
+87	42	2	5	\N	16	group1	43	Луговой Ф.	2	Дизайн	Дbp01	2026-06-08 21:38:43.855145	\N
+88	42	3	2	\N	16	group1	43	Луговой Ф.	2	Дизайн	Дbp01	2026-06-08 21:38:44.470927	\N
+89	42	5	3	\N	16	group1	43	Луговой Ф.	2	Дизайн	Дbp01	2026-06-08 21:38:45.504241	\N
 \.
 
 
@@ -628,8 +671,10 @@ COPY public.schedule_lessons (id, schedule_id, weekday, lesson_number, classroom
 --
 
 COPY public.schedules (id, name, created, lessons_in_day, weekdays, type, start_date, updated_at) FROM stdin;
+39	1	2026-06-04 21:44:23.075972	2	{1,2,3,4,5}	period	2026-06-01	2026-06-08 21:21:48.615571
+41	3	2026-06-08 21:31:43.901439	4	{1,2,3,4,5}	template	\N	\N
+42	4	2026-06-08 21:37:44.585179	6	{1,2,3,5}	period	2026-06-15	2026-06-08 21:38:45.506169
 40	2	2026-06-06 16:05:32.958865	4	{1,2,3,4,5}	period	2026-06-08	2026-06-06 16:05:44.881599
-39	1	2026-06-04 21:44:23.075972	2	{1,2,3,4,5}	period	2026-06-01	2026-06-08 21:15:30.684934
 \.
 
 
@@ -666,7 +711,6 @@ COPY public.teachers (id, name, fio, "position", color) FROM stdin;
 --
 
 COPY public.workloads (id, schedule_id, group_id, teacher_id, subject_id, lessons_per_week, created_at, updated_at) FROM stdin;
-29	39	16	48	2	1	2026-06-08 21:15:35.784667	2026-06-08 21:15:37.814225
 \.
 
 
@@ -676,7 +720,7 @@ COPY public.workloads (id, schedule_id, group_id, teacher_id, subject_id, lesson
 -- Name: bells_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.bells_id_seq', 6, true);
+SELECT pg_catalog.setval('public.bells_id_seq', 16, true);
 
 
 --
@@ -703,7 +747,7 @@ SELECT pg_catalog.setval('public.groups_id_seq', 18, true);
 -- Name: published_lessons_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.published_lessons_id_seq', 81, true);
+SELECT pg_catalog.setval('public.published_lessons_id_seq', 160, true);
 
 
 --
@@ -712,7 +756,7 @@ SELECT pg_catalog.setval('public.published_lessons_id_seq', 81, true);
 -- Name: schedule_lessons_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.schedule_lessons_id_seq', 73, true);
+SELECT pg_catalog.setval('public.schedule_lessons_id_seq', 89, true);
 
 
 --
@@ -721,7 +765,7 @@ SELECT pg_catalog.setval('public.schedule_lessons_id_seq', 73, true);
 -- Name: schedules_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.schedules_id_seq', 40, true);
+SELECT pg_catalog.setval('public.schedules_id_seq', 42, true);
 
 
 --
@@ -748,7 +792,7 @@ SELECT pg_catalog.setval('public.teachers_id_seq', 60, true);
 -- Name: workloads_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.workloads_id_seq', 29, true);
+SELECT pg_catalog.setval('public.workloads_id_seq', 33, true);
 
 
 --
@@ -788,12 +832,12 @@ ALTER TABLE ONLY public.published_lessons
 
 
 --
--- TOC entry 3770 (class 2606 OID 17279)
--- Name: published_lessons published_lessons_schedule_id_weekday_lesson_number_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- TOC entry 3770 (class 2606 OID 17322)
+-- Name: published_lessons published_lessons_unique_cell; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.published_lessons
-    ADD CONSTRAINT published_lessons_schedule_id_weekday_lesson_number_key UNIQUE (schedule_id, weekday, lesson_number);
+    ADD CONSTRAINT published_lessons_unique_cell UNIQUE (schedule_id, weekday, lesson_number, group_id);
 
 
 --
@@ -980,11 +1024,11 @@ ALTER TABLE ONLY public.workloads
     ADD CONSTRAINT workloads_teacher_id_fkey FOREIGN KEY (teacher_id) REFERENCES public.teachers(id) ON DELETE CASCADE;
 
 
--- Completed on 2026-06-08 21:16:40 +07
+-- Completed on 2026-06-08 21:42:52 +07
 
 --
 -- PostgreSQL database dump complete
 --
 
-\unrestrict qF9Cohh4OwFFe8Gink3nsMTDdUBjRerv8jkXUdsFgEAVDMdg9r9oqmJkO2IbtBD
+\unrestrict BhePU85sqVxzv7sOZVm2TWoBzU9PVvbUZ4EnMgDsgXARlcLKOgOT4OIqa83bxaX
 
