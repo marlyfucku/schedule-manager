@@ -1,7 +1,7 @@
 import { parseUrl } from '../../../lib/helpers/urlHelpers'
 import styles from './Lesson.module.css'
 
-export default function Lesson(lesson) {
+export default function Lesson({lesson}) {
   const { category } = parseUrl(window.location.href)
   
   if (lesson.type === 'window') {
