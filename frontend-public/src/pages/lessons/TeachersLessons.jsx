@@ -7,8 +7,7 @@ import PageNavigation from '../../components/PageNavigation.jsx'
 import { parseUrl } from '../../lib/helpers/urlHelpers.js'
 
 export default async function TeachersLessons() {
-  const { category } = parseUrl(window.location.href)
-  const { lessons, teacher, date } = await fetchLessons(category)
+  const { lessons, teacher, date } = await fetchLessons('teachers')
   const sortedLessons = sortLessonsByDays(lessons)
   const days = Object.keys(sortedLessons)
   const breadcrumbs = [
