@@ -6,10 +6,6 @@ import styles from './TeachersPage.module.css'
 
 const groupTeachersBySurnameLetter = (teachers) => {
   const groups = teachers.reduce((acc, teacher) => {
-    if (typeof teacher.fio !== 'string' || teacher.fio.trim() === '') {
-      throw new Error('Teacher fio is required for public teachers list')
-    }
-
     const fio = teacher.fio.trim()
     const letter = fio[0].toLocaleUpperCase('ru')
 
