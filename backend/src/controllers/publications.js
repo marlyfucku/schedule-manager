@@ -29,16 +29,16 @@ export const getPublishedLessonsByGroup = async (fastify, groupId, date) => {
     const { rows: lessons } = await client.query(`
       SELECT
         pl.weekday,
-        pl.lesson_number,
+        pl.lesson_number as "lessonNumber",
         pl.classroom,
-        pl.group_id,
-        pl.group_name,
-        pl.teacher_name,
-        pl.subject_name,
-        pl.subject_abbr,
-        pl.start_time,
-        pl.end_time,
-        s.start_date
+        pl.group_id as "groupId",
+        pl.group_name as "groupName",
+        pl.teacher_name as "teacherName",
+        pl.subject_name as "subjectName",
+        pl.subject_abbr as "subjectAbbr",
+        pl.start_time as "startTime",
+        pl.end_time as "endTime",
+        s.start_date as "startDate"
       FROM published_lessons pl
       JOIN schedules s ON pl.schedule_id = s.id
       WHERE pl.group_id = $1
@@ -74,16 +74,16 @@ export const getPublishedLessonsByTeacher = async (fastify, teacherId, date) => 
     const { rows: lessons } = await client.query(`
       SELECT
         pl.weekday,
-        pl.lesson_number,
+        pl.lesson_number as "lessonNumber",
         pl.classroom,
-        pl.group_id,
-        pl.group_name,
-        pl.teacher_name,
-        pl.subject_name,
-        pl.subject_abbr,
-        pl.start_time,
-        pl.end_time,
-        s.start_date
+        pl.group_id as "groupId",
+        pl.group_name as "groupName",
+        pl.teacher_name as "teacherName",
+        pl.subject_name as "subjectName",
+        pl.subject_abbr as "subjectAbbr",
+        pl.start_time as "startTime",
+        pl.end_time as "endTime",
+        s.start_date as "startDate"
       FROM published_lessons pl
       JOIN schedules s ON pl.schedule_id = s.id
       WHERE pl.teacher_id = $1
