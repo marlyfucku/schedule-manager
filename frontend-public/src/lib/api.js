@@ -1,16 +1,6 @@
 import { getMondayDate } from './helpers/date';
 import { parseUrl } from './helpers/urlHelpers';
 
-const toCamelLesson = lesson => ({
-  weekday: lesson.weekday,
-  lessonNumber: lesson.lesson_number,
-  startTime: lesson.start_time,
-  endTime: lesson.end_time,
-  subjectName: lesson.subject_name,
-  teacherName: lesson.teacher_name,
-  groupName: lesson.group_name,
-});
-
 export async function fetchTeachers() {
   try {
     const response = await fetch('/apiv1/teachers');
@@ -48,7 +38,7 @@ export async function fetchLessons(category) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
-    return { date, ...data, lessons: data.lessons.map(toCamelLesson) };
+    return { date, ...data };
   }
   catch (error) {
     console.error('Fetch error:', error);
