@@ -23,7 +23,7 @@ export default function Lesson({lesson}) {
       </td>
       <td class={styles.info}>
         <div class={styles.subject}>{lesson.subjectName}</div>
-        <div class={styles.groups}>{category === 'groups' ? lesson.teacherName : lesson.groupName}</div>
+        <div class={styles.groups}>{category === 'groups' ? lesson.teacherName : lesson.groupNames}</div>
       </td>
     </tr>
   )
