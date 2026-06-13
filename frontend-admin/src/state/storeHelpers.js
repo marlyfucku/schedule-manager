@@ -4,5 +4,5 @@ export const setLessonsUiState = (status) => {
   store.ui.lessons.status = status;
 };
 
-export const dispatchLessonClick = (target, lesson) => {
+export const dispatchLessonClick = () => {
 };
