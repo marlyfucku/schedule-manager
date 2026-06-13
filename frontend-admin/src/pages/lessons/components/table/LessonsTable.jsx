@@ -6,7 +6,7 @@ import TableRow from './TableRow';
 
 
 export default function LessonsTable({ lessonsByGroups, weekdays, lessonsInDay }) {
-  const { selectedGroup } = store.ui
+  const { selectedGroup } = store.ui.lessons
 
   return (
     <table class={styles.table}>

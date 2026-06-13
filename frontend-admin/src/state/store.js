@@ -1,9 +1,12 @@
 const store = {
   currentScheduleId: null,
   ui: {
-    selectedGroup: null,
-    selectedWorkload: null,
-    selectedLesson: null,
+    lessons: {
+      status: 'idle',
+      selectedGroup: null,
+      selectedWorkload: null,
+      selectedLesson: null,
+    },
   },
 };
 
