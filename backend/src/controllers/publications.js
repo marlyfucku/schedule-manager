@@ -71,7 +71,7 @@ export const getPublishedLessonsByTeacher = async (fastify, teacherId, date) => 
     }
 
     // Получаем уроки за конкретную неделю.
-    // Один урок преподавателя может вестись для нескольких групп — склеиваем их в groupNames.
+    // Один урок преподавателя может вестись для нескольких групп — склеиваем их в joinedGroups.
     const { rows: lessons } = await client.query(`
       SELECT
         pl.weekday,
@@ -82,7 +82,7 @@ export const getPublishedLessonsByTeacher = async (fastify, teacherId, date) => 
         pl.start_time as "startTime",
         pl.end_time as "endTime",
         s.start_date as "startDate",
-        string_agg(pl.group_name, ', ' ORDER BY pl.group_name) as "groupNames"
+        string_agg(pl.group_name, ', ' ORDER BY pl.group_name) as "joinedGroups"
       FROM published_lessons pl
       JOIN schedules s ON pl.schedule_id = s.id
       WHERE pl.teacher_id = $1
