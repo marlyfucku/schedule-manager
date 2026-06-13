@@ -17,7 +17,6 @@ export default async function LessonsPage() {
   const scheduleData = await fetchLessons(scheduleId);
   const workloads = await fetchWorkloads(scheduleId)
   const { groups, teachers, subjects, schedule } = scheduleData
-  console.log(1, scheduleData);
 
   if (scheduleData.type === 'error') {
     return <div>Расписание не найдено</div>;

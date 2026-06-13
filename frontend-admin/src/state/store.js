@@ -3,6 +3,7 @@ const store = {
   ui: {
     selectedGroup: null,
     selectedWorkload: null,
+    selectedLesson: null,
   },
 };
 
