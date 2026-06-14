@@ -57,8 +57,8 @@ async function decrementWorkload(workloadId) {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    const message = await response.json();
-    return { type: 'success', ...message };
+    const result = await response.json();
+    return { ...result };
   }
   catch (error) {
     return { type: 'error', message: error.message };

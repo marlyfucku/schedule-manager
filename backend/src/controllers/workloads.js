@@ -46,7 +46,7 @@ export const decrementWorkload = async (fastify, workloadId) => {
 
     if (workload.lessons_per_week === 1) {
       await client.query(workloadsQueries.delete, [workloadId]);
-      return { type: 'success', message: 'Нагрузка полностью использована и удалена' };
+      return { type: 'success', workloadsLeft: 0 };
     }
 
     const { rows: [updated] } = await client.query(
@@ -56,7 +56,7 @@ export const decrementWorkload = async (fastify, workloadId) => {
 
     return {
       type: 'success',
-      message: 'Осталось пар: ' + updated.lessons_per_week,
+      workloadsLeft: updated.lessons_per_week,
     };
   }
   catch (error) {
